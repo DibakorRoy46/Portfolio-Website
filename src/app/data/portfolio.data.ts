@@ -170,6 +170,14 @@ export const caseStudies: Project[] = [
         body: 'An archiving and warehousing strategy keeps the transactional database lean while history stays available for reporting.',
       },
     ],
+    architecture: [
+      { label: 'Clients', nodes: ['Angular web app', 'Mobile clients'] },
+      { label: 'API', nodes: ['ASP.NET API layer'] },
+      { label: 'Services', nodes: ['Orders', 'Sales', 'Promotion', 'Market Returns', 'Inventory'] },
+      { label: 'Messaging & cache', nodes: ['RabbitMQ', 'Redis'] },
+      { label: 'Data', nodes: ['SQL Server', 'Archive & warehouse'] },
+      { label: 'External', nodes: ['Enterprise sales & stock systems'] },
+    ],
     steps: [
       'Field sales and distributors work through the Angular web app and mobile clients.',
       'The API layer validates, authenticates and routes each request.',
@@ -214,6 +222,12 @@ export const caseStudies: Project[] = [
         body: 'Azure Functions took over the processing of multi-terabyte datasets. A run that took several hours now finishes in under 30 minutes.',
       },
     ],
+    architecture: [
+      { label: 'Client', nodes: ['Angular front end'] },
+      { label: 'API', nodes: ['ASP.NET Core API (.NET 10)'] },
+      { label: 'Processing', nodes: ['RabbitMQ', 'Hangfire jobs', 'Azure Functions'] },
+      { label: 'Data', nodes: ['SQL Server'] },
+    ],
     steps: [
       'Users record sales activity in the Angular front end.',
       'The ASP.NET Core API validates and stores each transaction.',
@@ -252,6 +266,12 @@ export const caseStudies: Project[] = [
         title: 'SAP SD integration',
         body: 'SAP SD is connected to HRMS, Primary-to-Secondary Sales and the VAT platform, so sales, billing and tax data agree from one system to the next.',
       },
+    ],
+    architecture: [
+      { label: 'Source', nodes: ['HRMS'] },
+      { label: 'Integration', nodes: ['REST integration APIs (.NET)'] },
+      { label: 'Target', nodes: ['DMS', '500+ distributors'] },
+      { label: 'Enterprise', nodes: ['SAP SD', 'Primary-to-Secondary Sales', 'VAT platform'] },
     ],
     steps: [
       'HRMS holds employee and sales-representative records.',
@@ -296,6 +316,13 @@ export const caseStudies: Project[] = [
         body: 'Discounts and free-of-charge quantities are calculated as the order is entered, so staff and approvers see the final numbers before anything reaches SAP.',
       },
     ],
+    architecture: [
+      { label: 'Client', nodes: ['Angular field order app', 'Live GPS tracking'] },
+      { label: 'API', nodes: ['.NET API', 'Discount & FOC rules', 'Approval workflow'] },
+      { label: 'Data', nodes: ['SQL Server'] },
+      { label: 'Sync', nodes: ['Hangfire jobs'] },
+      { label: 'SAP', nodes: ['SAP CPI (orders)', 'OData V2 (customer ledger)', 'Master data'] },
+    ],
     steps: [
       'Sales staff create an order in the field, with discounts and FOC calculated live.',
       'The order moves through multi-step approval.',
@@ -336,6 +363,13 @@ export const caseStudies: Project[] = [
         body: 'The positions of the agent and the customer are recorded in real time when a delivery is made.',
       },
     ],
+    architecture: [
+      { label: 'Users', nodes: ['Field agents', 'Distributors'] },
+      { label: 'App', nodes: ['Angular 20 app'] },
+      { label: 'API', nodes: ['.NET 9 API on Azure App Service'] },
+      { label: 'Workflows', nodes: ['Orders', 'Challan & Memo', 'Claims', 'SMS & email'] },
+      { label: 'Data', nodes: ['SQL Server', 'Redis'] },
+    ],
     steps: [
       'A field agent captures an end-consumer order.',
       'The distributor approves it.',
@@ -371,6 +405,12 @@ export const caseStudies: Project[] = [
         title: 'Real-time sync',
         body: 'Firebase keeps mobile and web clients in step, so a retailer’s order shows up everywhere without a refresh.',
       },
+    ],
+    architecture: [
+      { label: 'Apps', nodes: ['Doorbin (sales reps)', 'Lever Bazar (retailers)'] },
+      { label: 'API', nodes: ['Market Visit', 'Target Distribution', 'Order Tracking'] },
+      { label: 'Sync', nodes: ['Firebase real-time sync'] },
+      { label: 'Data', nodes: ['SQL Server 2019'] },
     ],
     steps: [
       'Sales reps plan and record market visits in Doorbin.',
@@ -461,6 +501,174 @@ export const experience: Role[] = [
 
 export const sideProjects: Project[] = [
   {
+    slug: 'issue-tracker',
+    title: 'Issue Tracker',
+    context: 'Multi-client support platform',
+    summary:
+      'A support ticket platform where clients raise issues, support triages them against SLA targets and developers resolve them, with every step audited.',
+    problem:
+      'A team that supports several client companies needs one system where each client sees only its own tickets, every ticket follows a defined workflow, and response times are measured against the SLA agreed with that client.',
+    role: 'Designing and building the whole system: database, API, Angular client, tests and documentation.',
+    contributions: [
+      'Built a multi-client model with client-scoped visibility, user types, roles and permission groups.',
+      'Implemented JWT authentication with rotating refresh tokens.',
+      'Built the issue module: a raise form with a mandatory screenshot and size-capped video, reference links, staff-only severity and attachment retention.',
+      'Implemented the status workflow with team queues, claiming, triage and assignment, plus a conversation log on every ticket.',
+      'Added per-client severity and SLA targets, tracked against actual response times.',
+      'Added notifications in the app, by email, SMS and WhatsApp, and an email inbox that turns incoming mail into tickets.',
+      'Added automation rules, auto-close and customer feedback.',
+      'Built the dashboard and reports on SQL stored procedures, plus a full audit log.',
+      'Supports Bangla text end to end, covered by its own integration tests.',
+      'Wrote 350 automated tests: 159 unit tests and 191 integration tests that run against a throw-away SQL Server database.',
+      'Recorded a twelve-chapter captioned video tutorial covering every role.',
+    ],
+    engineering: [
+      {
+        title: 'Four assemblies with enforced boundaries',
+        body: 'Domain references nothing, Application references only Domain, and Infrastructure implements their interfaces. The rules are enforced by the project references, not by convention.',
+      },
+      {
+        title: 'Two data paths',
+        body: 'EF Core 10 handles transactional work. Reporting reads SQL stored procedures, views and functions through plain ADO.NET.',
+      },
+      {
+        title: 'Roles as data',
+        body: 'A role is a record with a default permission group and behaviour flags. Nothing in the code branches on a hard-coded role name, so roles can be added without a release.',
+      },
+      {
+        title: 'Ownership drives the workflow',
+        body: 'Only the current owner may advance a ticket. A ticket in a team queue has no owner yet, so claiming it is the only way forward besides triage pulling it back.',
+      },
+      {
+        title: 'Observable by default',
+        body: 'Serilog and OpenTelemetry cover logging and tracing, and every endpoint answers in the same result envelope.',
+      },
+    ],
+    architecture: [
+      { label: 'Client', nodes: ['Angular 21'] },
+      { label: 'API', nodes: ['ASP.NET Core (.NET 10)', 'JWT auth', 'SignalR hub'] },
+      { label: 'Application', nodes: ['Use cases', 'Validators', 'Workflow'] },
+      { label: 'Domain', nodes: ['Entities', 'Value objects', 'Rules'] },
+      { label: 'Infrastructure', nodes: ['EF Core 10', 'ADO.NET', 'File storage'] },
+      { label: 'Data', nodes: ['SQL Server'] },
+    ],
+    steps: [
+      'An administrator onboards a client and sets its severity and SLA targets.',
+      'A client user raises a ticket with a screenshot.',
+      'Support triages it: reviews, rates the severity and assigns it.',
+      'A developer works on the ticket and resolves it.',
+      'The client confirms the fix or sends the ticket back.',
+      'The ticket closes and is rated; the dashboard and audit log record it.',
+    ],
+    stack: [
+      '.NET 10',
+      'ASP.NET Core',
+      'Angular 21',
+      'EF Core 10',
+      'ADO.NET',
+      'SQL Server',
+      'SignalR',
+      'JWT',
+      'Serilog',
+      'OpenTelemetry',
+      'xUnit',
+    ],
+    metrics: [
+      { value: '350', label: 'Automated tests' },
+      { value: '140', label: 'API endpoints' },
+      { value: '4', label: 'Notification channels' },
+      { value: '12', label: 'Tutorial chapters recorded' },
+    ],
+    videos: [
+      {
+        src: '/projects/issue-tracker/05-triage-and-assign.webm#t=30,90',
+        title: 'Sixty seconds of triage',
+        caption:
+          'A support agent reviews a ticket, sets the severity and watches the SLA deadline appear. Sample data, no sound.',
+        poster: '/projects/issue-tracker/triage.webp',
+      },
+      {
+        src: '/projects/issue-tracker/04-raise-a-ticket.webm#t=8',
+        title: 'Raising a ticket',
+        caption: 'A client user raises a ticket with a screenshot attached.',
+        poster: '/projects/issue-tracker/raise-ticket.webp',
+      },
+      {
+        src: '/projects/issue-tracker/11-dashboard-and-reports.webm#t=8',
+        title: 'Dashboard and reports',
+        caption: 'The administrator dashboard and the report tabs.',
+        poster: '/projects/issue-tracker/reports-overview.webp',
+      },
+    ],
+    screenshots: [
+      {
+        src: '/projects/issue-tracker/raise-ticket.webp',
+        alt: 'The raise-a-ticket form with client, type, priority, category and module fields',
+        caption:
+          'Raising a ticket: the client sets the priority, and support decides the severity.',
+      },
+      {
+        src: '/projects/issue-tracker/triage.webp',
+        alt: 'A ticket open in triage, showing attachments, the conversation log and the SLA panel',
+        caption: 'Triage: setting the severity stamps the SLA deadline from that client’s targets.',
+      },
+      {
+        src: '/projects/issue-tracker/reports-overview.webp',
+        alt: 'The reports overview with raised, attended, resolved and sent-back counts',
+        caption: 'Reports overview: volumes, response times and SLA compliance for a period.',
+      },
+      {
+        src: '/projects/issue-tracker/reports-breakdown.webp',
+        alt: 'A report table breaking tickets down by severity',
+        caption: 'Breakdown by severity, with CSV export.',
+      },
+      {
+        src: '/projects/issue-tracker/audit-log.webp',
+        alt: 'The audit log listing configuration changes with who made them and when',
+        caption: 'Audit log: every change with its old and new value. Entries cannot be edited.',
+      },
+    ],
+    decisions: [
+      {
+        title: 'Permissions travel in the token',
+        chose:
+          'Every effective permission and every assigned client is a claim in a 15-minute access token.',
+        why: 'Authorization becomes a pure claim check, with no database round-trip on each request.',
+        tradeOff:
+          'A permission change only takes effect at the next refresh. To keep that window short, refresh tokens are rotated on every use and revoked on any group, role or client change.',
+      },
+      {
+        title: 'Client scope enforced in one place',
+        chose:
+          'Client-owned entities share one interface, every query passes through a single scope filter, and writes check access explicitly.',
+        why: 'Tenant isolation does not depend on each feature remembering to filter. The Angular guards are a convenience; the API is the authority.',
+        tradeOff:
+          'Every new client-owned entity has to opt in to the interface before it is safe to expose.',
+      },
+      {
+        title: 'One codebase for shared and dedicated hosting',
+        chose:
+          'Whether an installation serves many clients or exactly one is a configuration setting, not a separate build.',
+        why: 'Tickets, SLA, notifications, automation and reports behave identically in both, and there is one build to maintain.',
+        tradeOff:
+          'The installations do not talk to each other, so moving a client to dedicated hosting does not carry its history across.',
+      },
+      {
+        title: 'EF Core for writes, stored procedures for reports',
+        chose:
+          'Transactional work goes through EF Core and the domain model. Dashboard and report figures come from SQL stored procedures read with ADO.NET.',
+        why: 'Reports are set-based questions that SQL answers best, and they stay fast as ticket volume grows.',
+        tradeOff: 'There are two data-access styles to keep in step when the schema changes.',
+      },
+    ],
+    limits: [
+      'A dedicated installation starts empty. Carrying a client’s existing tickets across is a one-off migration, not part of the application.',
+      'Central and dedicated installations keep separate accounts, so staff sign in to each one.',
+      'Connecting real email, SMS and WhatsApp providers is configuration done at install time, and parts of the notification module are still being finished.',
+    ],
+    inProgress: true,
+  },
+  {
     slug: 'mediato',
     title: 'Mediato',
     context: 'Open-source library',
@@ -487,6 +695,12 @@ export const sideProjects: Project[] = [
         title: 'Streaming',
         body: 'Stream requests return results as an asynchronous sequence instead of a single response.',
       },
+    ],
+    architecture: [
+      { label: 'Caller', nodes: ['Send', 'Publish', 'CreateStream'] },
+      { label: 'Mediator', nodes: ['Mediato'] },
+      { label: 'Pipeline', nodes: ['Behavior 1', 'Behavior 2', 'Behavior n'] },
+      { label: 'Handlers', nodes: ['Request handler', 'Notification handlers', 'Stream handler'] },
     ],
     steps: [
       'A request is sent to the mediator.',
@@ -526,6 +740,24 @@ export const sideProjects: Project[] = [
         title: 'Data owned by the services',
         body: 'Services own their data and use the store that fits: SQL Server, PostgreSQL, MongoDB or Redis.',
       },
+    ],
+    architecture: [
+      { label: 'Entry', nodes: ['API gateway'] },
+      {
+        label: 'Services',
+        nodes: [
+          'Catalog',
+          'Basket',
+          'Discount',
+          'Ordering',
+          'Payment',
+          'Identity',
+          'Notifications',
+        ],
+      },
+      { label: 'Communication', nodes: ['gRPC', 'RabbitMQ + Outbox'] },
+      { label: 'Data', nodes: ['SQL Server', 'PostgreSQL', 'MongoDB', 'Redis'] },
+      { label: 'Platform', nodes: ['Docker', 'Kubernetes (AKS)', 'CI/CD'] },
     ],
     steps: [
       'Clients call the API gateway.',
@@ -583,6 +815,12 @@ export const sideProjects: Project[] = [
         body: 'Commands go through EF Core and the domain model. Queries use Dapper for direct, fast reads.',
       },
     ],
+    architecture: [
+      { label: 'Entry', nodes: ['Web API'] },
+      { label: 'Modules', nodes: ['Identity', 'Events'] },
+      { label: 'Shared', nodes: ['SharedKernel', 'Outbox', 'RedLock'] },
+      { label: 'Data access', nodes: ['EF Core (writes)', 'Dapper (reads)'] },
+    ],
     steps: [
       'A booking command arrives at the API.',
       'A distributed lock is taken on the seat.',
@@ -592,6 +830,7 @@ export const sideProjects: Project[] = [
     ],
     stack: ['.NET', 'EF Core', 'Dapper', 'RedLockNet', 'CQRS', 'DDD'],
     metrics: [],
+    repo: 'https://github.com/DibakorRoy46/Ticket-Booking-System',
   },
   {
     slug: 'salespulse',
@@ -620,6 +859,12 @@ export const sideProjects: Project[] = [
         title: 'Deliberately simple',
         body: 'The domain does not need separate read and write models, so the project uses Clean Architecture layers without CQRS.',
       },
+    ],
+    architecture: [
+      { label: 'Users', nodes: ['Rep', 'Approver', 'Manager'] },
+      { label: 'API', nodes: ['.NET 10 API + JWT', 'SignalR hub'] },
+      { label: 'Core', nodes: ['Application', 'Domain'] },
+      { label: 'Data', nodes: ['EF Core'] },
     ],
     steps: [
       'A rep submits a sales order.',
@@ -654,6 +899,11 @@ export const sideProjects: Project[] = [
         body: 'JWT tokens carry the user’s role, and endpoints are restricted by role.',
       },
     ],
+    architecture: [
+      { label: 'Client', nodes: ['Angular', 'PrimeNG'] },
+      { label: 'API', nodes: ['ASP.NET Core Web API', 'JWT + roles'] },
+      { label: 'Data', nodes: ['Movie catalog'] },
+    ],
     steps: [
       'The user signs in and receives a JWT.',
       'The Angular client sends search queries to the Web API.',
@@ -685,6 +935,11 @@ export const sideProjects: Project[] = [
         title: 'Faster reporting',
         body: 'A schema and index redesign made reporting queries 50% faster.',
       },
+    ],
+    architecture: [
+      { label: 'Browser', nodes: ['jQuery', 'AJAX forms'] },
+      { label: 'App', nodes: ['ASP.NET Core MVC', 'GPA engine', 'Reports'] },
+      { label: 'Data', nodes: ['SQL Server'] },
     ],
     steps: [
       'Staff enter marks through AJAX forms.',

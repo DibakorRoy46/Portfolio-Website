@@ -2,11 +2,13 @@ import { SlicePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { sideProjects } from '../../../data/portfolio.data';
+import { ArchitectureDiagram } from '../../../shared/architecture-diagram';
 import { Reveal } from '../../../shared/reveal';
+import { GithubPanel } from './github-panel';
 
 @Component({
   selector: 'app-projects',
-  imports: [RouterLink, SlicePipe, Reveal],
+  imports: [RouterLink, SlicePipe, Reveal, ArchitectureDiagram, GithubPanel],
   template: `
     <section id="projects" class="section">
       <div class="container">
@@ -22,6 +24,14 @@ import { Reveal } from '../../../shared/reveal';
         <ul class="grid">
           @for (project of projects; track project.slug) {
             <li class="card" appReveal>
+              <a
+                class="cover"
+                [routerLink]="['/projects', project.slug]"
+                tabindex="-1"
+                aria-hidden="true"
+              >
+                <app-architecture-diagram [layers]="project.architecture | slice: 0 : 4" compact />
+              </a>
               <div class="card-head">
                 <p class="eyebrow">{{ project.context }}</p>
                 @if (project.inProgress) {
@@ -55,6 +65,8 @@ import { Reveal } from '../../../shared/reveal';
             </li>
           }
         </ul>
+
+        <app-github-panel />
       </div>
     </section>
   `,
@@ -81,6 +93,23 @@ import { Reveal } from '../../../shared/reveal';
     .card:hover {
       border-color: var(--accent);
       transform: translateY(-4px);
+    }
+
+    // Miniature of the project's architecture; the full diagram is on its page.
+    .cover {
+      display: grid;
+      place-items: center;
+      min-height: 11.5rem;
+      margin: calc(clamp(1.4rem, 3vw, 2rem) * -1);
+      margin-bottom: 0.25rem;
+      padding: 1.25rem;
+      background:
+        linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0 / 28px 28px,
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0 / 28px 28px,
+        var(--bg-alt);
+      border-bottom: 1px solid var(--line);
+      border-radius: var(--radius) var(--radius) 0 0;
+      overflow: hidden;
     }
 
     .card-head {

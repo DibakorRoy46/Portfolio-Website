@@ -62,6 +62,36 @@ export interface Note {
   body: string;
 }
 
+/** One row of an architecture diagram, from the user-facing side down to data. */
+export interface Layer {
+  label: string;
+  nodes: string[];
+}
+
+/** An image in /public shown in a project's gallery. */
+export interface Screenshot {
+  src: string;
+  alt: string;
+  caption: string;
+}
+
+/** A screen recording in /public shown on a project's page. */
+export interface Video {
+  src: string;
+  title: string;
+  caption: string;
+  /** Still image shown before the video plays. */
+  poster?: string;
+}
+
+/** A design decision: what was chosen, why, and what it costs. */
+export interface Decision {
+  title: string;
+  chose: string;
+  why: string;
+  tradeOff: string;
+}
+
 /** A client case study or a personal project. Both render on the same detail page. */
 export interface Project {
   slug: string;
@@ -73,8 +103,18 @@ export interface Project {
   role: string;
   contributions: string[];
   engineering: Note[];
+  /** Simplified architecture, drawn as a diagram on the detail page. */
+  architecture: Layer[];
   /** How the system works, in order. */
   steps: string[];
+  /** Real screenshots or diagrams. The gallery appears once this has entries. */
+  screenshots?: Screenshot[];
+  /** Real screen recordings of the running application. */
+  videos?: Video[];
+  /** Design decisions with their trade-offs, for the deeper case studies. */
+  decisions?: Decision[];
+  /** What the system deliberately does not do, or does not do yet. */
+  limits?: string[];
   stack: string[];
   metrics: Stat[];
   repo?: string;

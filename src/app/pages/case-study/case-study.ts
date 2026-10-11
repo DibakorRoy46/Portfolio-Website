@@ -3,11 +3,12 @@ import { Component, computed, effect, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Seo } from '../../core/seo';
 import { caseStudies, profile, sideProjects } from '../../data/portfolio.data';
+import { ArchitectureDiagram } from '../../shared/architecture-diagram';
 
 /** Detail page for a client case study (/work/:slug) or a personal project (/projects/:slug). */
 @Component({
   selector: 'app-case-study',
-  imports: [RouterLink, DecimalPipe],
+  imports: [RouterLink, DecimalPipe, ArchitectureDiagram],
   templateUrl: './case-study.html',
   styleUrl: './case-study.scss',
 })

@@ -32,6 +32,58 @@
     </dl>
   }
 
+  <figure class="diagram">
+    <figcaption>
+      <span class="eyebrow">Architecture</span>
+      <span class="muted">Simplified view of the main parts and how data flows between them.</span>
+    </figcaption>
+    <app-architecture-diagram [layers]="project().architecture" />
+  </figure>
+
+  @if (project().screenshots; as screenshots) {
+    @if (screenshots.length) {
+      <section class="gallery">
+        <h2 class="eyebrow">Screens</h2>
+        <div class="shots">
+          @for (shot of screenshots; track shot.src) {
+            <figure>
+              <a [href]="shot.src" target="_blank" rel="noopener">
+                <img [src]="shot.src" [alt]="shot.alt" loading="lazy" />
+              </a>
+              <figcaption>{{ shot.caption }}</figcaption>
+            </figure>
+          }
+        </div>
+      </section>
+    }
+  }
+
+  @if (project().videos; as videos) {
+    @if (videos.length) {
+      <section class="gallery">
+        <h2 class="eyebrow">Walkthrough</h2>
+        <div class="shots shots--videos">
+          @for (video of videos; track video.src) {
+            <figure>
+              <video
+                [src]="video.src"
+                [attr.poster]="video.poster ?? null"
+                [attr.aria-label]="video.title"
+                controls
+                muted
+                playsinline
+                preload="metadata"
+              ></video>
+              <figcaption>
+                <strong>{{ video.title }}.</strong> {{ video.caption }}
+              </figcaption>
+            </figure>
+          }
+        </div>
+      </section>
+    }
+  }
+
   <div class="detail">
     <div class="main">
       <section>
@@ -59,6 +111,38 @@
           }
         </div>
       </section>
+
+      @if (project().decisions; as decisions) {
+        <section>
+          <h2 class="eyebrow">Decisions and trade-offs</h2>
+          <div class="notes">
+            @for (decision of decisions; track decision.title) {
+              <div class="note">
+                <h3>{{ decision.title }}</h3>
+                <dl class="decision">
+                  <dt>Chose</dt>
+                  <dd>{{ decision.chose }}</dd>
+                  <dt>Why</dt>
+                  <dd>{{ decision.why }}</dd>
+                  <dt>Trade-off</dt>
+                  <dd>{{ decision.tradeOff }}</dd>
+                </dl>
+              </div>
+            }
+          </div>
+        </section>
+      }
+
+      @if (project().limits; as limits) {
+        <section>
+          <h2 class="eyebrow">Known limits</h2>
+          <ul class="bullets">
+            @for (limit of limits; track limit) {
+              <li>{{ limit }}</li>
+            }
+          </ul>
+        </section>
+      }
     </div>
 
     <aside class="side">

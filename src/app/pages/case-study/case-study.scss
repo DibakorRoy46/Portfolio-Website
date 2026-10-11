@@ -91,6 +91,91 @@ h1 {
   }
 }
 
+.diagram {
+  margin: clamp(2.5rem, 6vw, 4rem) 0 0;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  background:
+    linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0 / 28px 28px,
+    var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) + 4px);
+
+  figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem 1.25rem;
+    margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+    font-size: 0.9rem;
+  }
+}
+
+.gallery {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+
+  h2 {
+    margin-bottom: 1.1rem;
+    font-weight: 400;
+  }
+}
+
+.shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1.25rem;
+
+  figure {
+    margin: 0;
+  }
+
+  img,
+  video {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  figcaption {
+    margin-top: 0.6rem;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+
+    strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+  }
+}
+
+// The first video is the highlight and takes the full row.
+.shots--videos figure:first-child {
+  grid-column: 1 / -1;
+}
+
+.decision {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 0.5rem 1rem;
+  margin-top: 0.75rem;
+
+  dt {
+    padding-top: 0.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  dd {
+    color: var(--text-muted);
+  }
+}
+
 .detail {
   display: grid;
   grid-template-columns: 1.7fr 1fr;
