@@ -1,0 +1,161 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--header-bg);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  height: 4rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--accent);
+}
+
+.nav {
+  display: flex;
+  gap: 1.5rem;
+  margin-left: auto;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+
+  a {
+    position: relative;
+    padding-block: 0.4rem;
+    transition: color 0.2s ease;
+  }
+
+  a:hover,
+  a.is-active {
+    color: var(--text);
+  }
+
+  a::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 0.25s ease;
+  }
+
+  a.is-active::after {
+    transform: scaleX(1);
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  background: none;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: var(--text);
+  }
+}
+
+.menu-btn {
+  display: none;
+}
+
+// Reading progress along the bottom edge, where the browser supports
+// scroll-driven animations. Elsewhere the bar simply stays hidden.
+.progress {
+  position: absolute;
+  inset: auto 0 -1px 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+@supports (animation-timeline: scroll()) {
+  .progress {
+    animation: progress linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+@keyframes progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 960px) {
+  .menu-btn {
+    display: grid;
+  }
+
+  .nav {
+    display: none;
+    position: absolute;
+    inset: 4rem 0 auto 0;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding: 0.5rem var(--gutter) 1rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    font-size: 1.05rem;
+    color: var(--text);
+
+    &.is-open {
+      display: flex;
+    }
+
+    a {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    a:last-child {
+      border-bottom: 0;
+    }
+
+    a::after {
+      display: none;
+    }
+
+    a.is-active {
+      color: var(--accent);
+    }
+  }
+}

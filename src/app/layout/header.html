@@ -1,0 +1,54 @@
+<header class="site-header">
+  <div class="container bar">
+    <a class="brand" routerLink="/" (click)="menuOpen.set(false)">
+      <span class="mark" aria-hidden="true">{{ profile.initials }}</span>
+      <span>{{ profile.name }}</span>
+    </a>
+
+    <nav id="site-nav" class="nav" [class.is-open]="menuOpen()" aria-label="Primary">
+      @for (link of links; track link.fragment) {
+        <a
+          routerLink="/"
+          [fragment]="link.fragment"
+          [class.is-active]="active() === link.fragment"
+          [attr.aria-current]="active() === link.fragment ? 'location' : null"
+          (click)="menuOpen.set(false)"
+        >
+          {{ link.label }}
+        </a>
+      }
+    </nav>
+
+    <div class="actions">
+      <button
+        type="button"
+        class="icon-btn"
+        aria-label="Switch color theme"
+        (click)="toggleTheme()"
+      >
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6" />
+          <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        class="icon-btn menu-btn"
+        aria-controls="site-nav"
+        [attr.aria-expanded]="menuOpen()"
+        [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'"
+        (click)="menuOpen.set(!menuOpen())"
+      >
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          @if (menuOpen()) {
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none" />
+          } @else {
+            <path d="M4 8h16M4 16h16" stroke="currentColor" stroke-width="1.6" fill="none" />
+          }
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <span class="progress" aria-hidden="true"></span>
+</header>

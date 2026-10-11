@@ -1,0 +1,108 @@
+<div class="backdrop" aria-hidden="true"></div>
+
+<article class="container case">
+  <a class="back text-link" routerLink="/" [fragment]="kind()">
+    <span aria-hidden="true">←</span> {{ backLabel() }}
+  </a>
+
+  <header class="case-head">
+    <p class="eyebrow">
+      {{ project().context }}
+      @if (project().inProgress) {
+        <span class="status">In progress</span>
+      }
+    </p>
+    <h1>{{ project().title }}</h1>
+    <p class="summary">{{ project().summary }}</p>
+    @if (project().repo; as repo) {
+      <a class="btn repo" [href]="repo" target="_blank" rel="noopener">
+        Source on GitHub <span aria-hidden="true">↗</span>
+      </a>
+    }
+  </header>
+
+  @if (project().metrics.length) {
+    <dl class="metrics">
+      @for (metric of project().metrics; track metric.label) {
+        <div class="metric">
+          <dt>{{ metric.label }}</dt>
+          <dd>{{ metric.value }}</dd>
+        </div>
+      }
+    </dl>
+  }
+
+  <div class="detail">
+    <div class="main">
+      <section>
+        <h2 class="eyebrow">The problem</h2>
+        <p class="lead">{{ project().problem }}</p>
+      </section>
+
+      <section>
+        <h2 class="eyebrow">What I built</h2>
+        <ul class="bullets">
+          @for (item of project().contributions; track item) {
+            <li>{{ item }}</li>
+          }
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="eyebrow">Engineering notes</h2>
+        <div class="notes">
+          @for (note of project().engineering; track note.title) {
+            <div class="note">
+              <h3>{{ note.title }}</h3>
+              <p>{{ note.body }}</p>
+            </div>
+          }
+        </div>
+      </section>
+    </div>
+
+    <aside class="side">
+      <section>
+        <h2 class="eyebrow">My role</h2>
+        <p>{{ project().role }}</p>
+      </section>
+
+      <section>
+        <h2 class="eyebrow">Stack</h2>
+        <ul class="tags">
+          @for (tech of project().stack; track tech) {
+            <li>{{ tech }}</li>
+          }
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="eyebrow">How it works</h2>
+        <ol class="steps">
+          @for (step of project().steps; track step; let i = $index) {
+            <li>
+              <span class="step-num" aria-hidden="true">{{ i + 1 | number: '2.0' }}</span>
+              <span>{{ step }}</span>
+            </li>
+          }
+        </ol>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="pager" aria-label="More projects">
+    <a class="pager-link" [routerLink]="['/', kind(), previous().slug]">
+      <span class="eyebrow"><span aria-hidden="true">←</span> Previous</span>
+      <span class="pager-title">{{ previous().title }}</span>
+    </a>
+    <a class="pager-link pager-link--next" [routerLink]="['/', kind(), next().slug]">
+      <span class="eyebrow">Next <span aria-hidden="true">→</span></span>
+      <span class="pager-title">{{ next().title }}</span>
+    </a>
+  </nav>
+
+  <aside class="cta">
+    <p>Want the details behind this one?</p>
+    <a class="btn btn--primary" routerLink="/" fragment="contact">Get in touch</a>
+  </aside>
+</article>
