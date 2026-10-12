@@ -113,8 +113,10 @@ const REPO_COUNT = 4;
     }
 
     .handle {
-      font-family: var(--font-serif);
-      font-size: 1.75rem;
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      letter-spacing: var(--display-tracking);
+      font-size: 1.4rem;
       line-height: 1.2;
     }
 

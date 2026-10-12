@@ -78,9 +78,10 @@ import { Reveal } from '../../../shared/reveal';
 
     h3 {
       margin-top: 0.5rem;
-      font-family: var(--font-serif);
-      font-weight: 400;
-      font-size: clamp(1.75rem, 3.6vw, 2.6rem);
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      letter-spacing: var(--display-tracking);
+      font-size: clamp(1.5rem, 2.8vw, 2.1rem);
       line-height: 1.1;
       transition: color 0.2s ease;
     }
@@ -107,10 +108,17 @@ import { Reveal } from '../../../shared/reveal';
     }
 
     .metric-value {
-      font-family: var(--font-serif);
-      font-size: clamp(2rem, 4vw, 3rem);
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      letter-spacing: var(--display-tracking);
+      font-size: clamp(1.75rem, 3.2vw, 2.5rem);
       line-height: 1;
-      color: var(--accent);
+      width: fit-content;
+      margin-left: auto;
+      background: var(--gradient);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
     }
 
     .metric-label {

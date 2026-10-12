@@ -1,34 +1,42 @@
 // Design tokens. Dark is the default; light applies from the system setting
 // or from the header toggle (data-theme on <html>).
 @mixin dark-tokens {
-  --bg: #0e0f11;
-  --bg-elev: #15171a;
-  --line: #24272c;
-  --line-strong: #383d45;
-  --text: #ecebe6;
-  --text-muted: #9b9da4;
+  --bg: #07080a;
+  --bg-alt: #0b0c0f;
+  --bg-elev: #111317;
+  --line: rgb(255 255 255 / 0.09);
+  --line-strong: rgb(255 255 255 / 0.18);
+  --text: #f4f3ef;
+  --text-muted: #a3a5ad;
   --accent: #ff7a45;
-  --accent-contrast: #17110d;
-  --bg-alt: #111316;
-  --accent-soft: rgb(255 122 69 / 0.12);
+  --accent-2: #ff4f8b;
+  --accent-3: #a56bff;
+  --accent-contrast: #140c08;
+  --accent-soft: rgb(255 122 69 / 0.13);
   --grid-line: rgb(255 255 255 / 0.04);
-  --header-bg: rgb(14 15 17 / 0.78);
+  --header-bg: rgb(17 19 23 / 0.72);
+  --shadow: 0 24px 60px -30px rgb(0 0 0 / 0.85);
+  --glow: rgb(165 107 255 / 0.1);
   color-scheme: dark;
 }
 
 @mixin light-tokens {
-  --bg: #f7f5f0;
+  --bg: #f6f4ef;
+  --bg-alt: #efece4;
   --bg-elev: #ffffff;
-  --line: #e3dfd5;
-  --line-strong: #cbc6b9;
-  --text: #17181a;
-  --text-muted: #5c5f66;
+  --line: rgb(20 20 20 / 0.1);
+  --line-strong: rgb(20 20 20 / 0.2);
+  --text: #131416;
+  --text-muted: #5a5d64;
   --accent: #c2410c;
+  --accent-2: #be185d;
+  --accent-3: #6d28d9;
   --accent-contrast: #ffffff;
-  --bg-alt: #f1eee6;
   --accent-soft: rgb(194 65 12 / 0.09);
   --grid-line: rgb(0 0 0 / 0.045);
-  --header-bg: rgb(247 245 240 / 0.8);
+  --header-bg: rgb(255 255 255 / 0.72);
+  --shadow: 0 24px 60px -34px rgb(60 40 20 / 0.35);
+  --glow: rgb(109 40 217 / 0.07);
   color-scheme: light;
 }
 
@@ -36,11 +44,17 @@
   @include dark-tokens;
 
   --font-sans: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
   --font-mono: 'Geist Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
 
+  // Headings and figures: the sans face, set heavy and tight.
+  --font-display: var(--font-sans);
+  --display-weight: 600;
+  --display-tracking: -0.035em;
+
+  --gradient: linear-gradient(120deg, var(--accent), var(--accent-2) 55%, var(--accent-3));
+
   --gutter: clamp(1.25rem, 4vw, 2.5rem);
-  --radius: 14px;
+  --radius: 20px;
 }
 
 @media (prefers-color-scheme: light) {
@@ -66,7 +80,10 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
+  background:
+    radial-gradient(70rem 45rem at 105% -10%, var(--glow), transparent 60%),
+    radial-gradient(60rem 40rem at -10% 35%, var(--accent-soft), transparent 60%), var(--bg);
+  background-attachment: fixed;
   color: var(--text);
   font-family: var(--font-sans);
   font-size: 1rem;
@@ -107,7 +124,7 @@ button {
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
 ::selection {
@@ -116,7 +133,7 @@ button {
 }
 
 [id] {
-  scroll-margin-top: 5.5rem;
+  scroll-margin-top: 6rem;
 }
 
 .container {
@@ -141,14 +158,18 @@ main {
 .section-head {
   display: flex;
   align-items: baseline;
-  gap: 1.25rem;
+  gap: 1rem;
   margin-bottom: clamp(2rem, 5vw, 3.5rem);
 }
 
 .section-index {
+  padding: 0.15rem 0.6rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.74rem;
   color: var(--accent);
+  transform: translateY(-0.5em);
 
   &::before {
     counter-increment: section;
@@ -165,11 +186,11 @@ main {
 }
 
 .section-title {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-size: clamp(2.1rem, 4.6vw, 3.4rem);
   line-height: 1.05;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--display-tracking);
 }
 
 .eyebrow {
@@ -184,6 +205,14 @@ main {
   color: var(--text-muted);
 }
 
+// Accent gradient clipped to the text.
+.gradient-text {
+  background: var(--gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
 .tags {
   display: flex;
   flex-wrap: wrap;
@@ -193,8 +222,9 @@ main {
     font-family: var(--font-mono);
     font-size: 0.74rem;
     line-height: 1.4;
-    padding: 0.2rem 0.6rem;
-    border: 1px solid var(--line-strong);
+    padding: 0.25rem 0.65rem;
+    background: var(--bg);
+    border: 1px solid var(--line);
     border-radius: 999px;
     color: var(--text-muted);
   }
@@ -213,10 +243,11 @@ main {
     content: '';
     position: absolute;
     left: 0;
-    top: 0.8em;
-    width: 0.6rem;
-    height: 1px;
-    background: var(--accent);
+    top: 0.65em;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--gradient);
   }
 }
 
@@ -224,31 +255,35 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.3rem;
+  padding: 0.8rem 1.4rem;
+  background: var(--bg-elev);
   border: 1px solid var(--line-strong);
   border-radius: 999px;
   font-size: 0.95rem;
   font-weight: 500;
   line-height: 1.2;
+  cursor: pointer;
   transition:
-    background-color 0.2s ease,
+    transform 0.2s ease,
     border-color 0.2s ease,
-    color 0.2s ease;
+    box-shadow 0.2s ease;
 
   &:hover {
     border-color: var(--text);
+    transform: translateY(-2px);
   }
 }
 
 .btn--primary {
-  background: var(--text);
-  border-color: var(--text);
-  color: var(--bg);
+  background: var(--gradient);
+  border-color: transparent;
+  color: var(--accent-contrast);
+  font-weight: 600;
+  box-shadow: 0 10px 30px -12px var(--accent);
 
   &:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: var(--accent-contrast);
+    border-color: transparent;
+    box-shadow: 0 16px 40px -12px var(--accent);
   }
 }
 
@@ -260,6 +295,33 @@ main {
 
   &:hover {
     text-decoration-color: var(--accent);
+  }
+}
+
+// Soft light that follows the pointer across a card. The appSpotlight
+// directive adds this class and keeps --mx / --my up to date.
+.spotlight {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(
+      24rem circle at var(--mx, 50%) var(--my, 0%),
+      var(--accent-soft),
+      transparent 65%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  &:hover::before {
+    opacity: 1;
   }
 }
 
@@ -281,10 +343,10 @@ main {
 // Scroll-in effect, applied by the appReveal directive in the browser only.
 .reveal {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(18px);
   transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
 
   &.is-visible {
     opacity: 1;

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { profile } from '../../../data/portfolio.data';
+import { Spotlight } from '../../../shared/spotlight';
 
 @Component({
   selector: 'app-contact',
+  imports: [Spotlight],
   template: `
     <section id="contact" class="section">
       <div class="container">
@@ -11,7 +13,7 @@ import { profile } from '../../../data/portfolio.data';
           <h2 class="section-title">Contact</h2>
         </div>
 
-        <div class="panel">
+        <div class="panel" appSpotlight>
           <p class="lead">Have a role or a project in mind? I’d like to hear about it.</p>
           <a class="email" href="mailto:{{ profile.email }}">{{ profile.email }}</a>
 
@@ -57,8 +59,10 @@ import { profile } from '../../../data/portfolio.data';
     .email {
       display: inline-block;
       margin-top: 1.25rem;
-      font-family: var(--font-serif);
-      font-size: clamp(1.6rem, 5.6vw, 4rem);
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      letter-spacing: var(--display-tracking);
+      font-size: clamp(1.2rem, 4.6vw, 3.25rem);
       line-height: 1.1;
       overflow-wrap: anywhere;
       text-decoration: underline;

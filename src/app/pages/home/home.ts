@@ -7,6 +7,7 @@ import { ContactSection } from './sections/contact';
 import { ExperienceSection } from './sections/experience';
 import { ExpertiseSection } from './sections/expertise';
 import { HeroSection } from './sections/hero';
+import { Marquee } from './sections/marquee';
 import { ProjectsSection } from './sections/projects';
 import { SkillsSection } from './sections/skills';
 import { WorkSection } from './sections/work';
@@ -15,6 +16,7 @@ import { WorkSection } from './sections/work';
   selector: 'app-home',
   imports: [
     HeroSection,
+    Marquee,
     ExpertiseSection,
     WorkSection,
     ApproachSection,
@@ -26,6 +28,7 @@ import { WorkSection } from './sections/work';
   ],
   template: `
     <app-hero />
+    <app-marquee />
     <app-expertise />
     <app-work />
     <app-approach />

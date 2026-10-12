@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { skills } from '../../../data/portfolio.data';
 import { Reveal } from '../../../shared/reveal';
+import { Spotlight } from '../../../shared/spotlight';
 
 @Component({
   selector: 'app-skills',
-  imports: [Reveal],
+  imports: [Reveal, Spotlight],
   template: `
     <section id="skills" class="section section--alt">
       <div class="container">
@@ -18,7 +19,7 @@ import { Reveal } from '../../../shared/reveal';
 
         <ul class="grid">
           @for (group of groups; track group.title) {
-            <li class="group" appReveal>
+            <li class="group" appReveal appSpotlight>
               <h3 class="eyebrow">{{ group.title }}</h3>
               <ul class="tags">
                 @for (item of group.items; track item) {

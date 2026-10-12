@@ -23,8 +23,9 @@ import { profile } from '../../data/portfolio.data';
     }
 
     h1 {
-      font-family: var(--font-serif);
-      font-weight: 400;
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      letter-spacing: var(--display-tracking);
       font-size: clamp(3rem, 9vw, 6rem);
       line-height: 1;
     }

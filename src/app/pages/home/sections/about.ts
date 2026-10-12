@@ -79,9 +79,11 @@ import { Reveal } from '../../../shared/reveal';
     }
 
     .bio p:first-of-type {
-      font-family: var(--font-serif);
-      font-size: clamp(1.5rem, 2.8vw, 2rem);
-      line-height: 1.3;
+      font-family: var(--font-display);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      font-size: clamp(1.25rem, 2.1vw, 1.55rem);
+      line-height: 1.4;
     }
 
     .photo {
@@ -156,8 +158,10 @@ import { Reveal } from '../../../shared/reveal';
     }
 
     .what {
-      font-family: var(--font-serif);
-      font-size: 1.35rem;
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      letter-spacing: var(--display-tracking);
+      font-size: 1.1rem;
       line-height: 1.15;
     }
 

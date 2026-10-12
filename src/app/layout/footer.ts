@@ -52,8 +52,10 @@ import { profile } from '../data/portfolio.data';
     }
 
     .name {
-      font-family: var(--font-serif);
-      font-size: 2rem;
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      letter-spacing: var(--display-tracking);
+      font-size: 1.5rem;
       line-height: 1.1;
     }
 

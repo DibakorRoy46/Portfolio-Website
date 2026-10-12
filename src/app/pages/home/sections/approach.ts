@@ -47,17 +47,25 @@ import { Reveal } from '../../../shared/reveal';
     }
 
     .num {
-      font-family: var(--font-serif);
-      font-size: 3rem;
-      line-height: 0.9;
-      color: var(--accent);
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      letter-spacing: var(--display-tracking);
+      font-size: 2.6rem;
+      line-height: 1;
+      width: fit-content;
+      height: fit-content;
+      background: var(--gradient);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
     }
 
     h3 {
       margin-bottom: 0.5rem;
-      font-family: var(--font-serif);
-      font-weight: 400;
-      font-size: 1.6rem;
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      letter-spacing: var(--display-tracking);
+      font-size: 1.3rem;
       line-height: 1.15;
     }
 

@@ -4,11 +4,12 @@ import { RouterLink } from '@angular/router';
 import { sideProjects } from '../../../data/portfolio.data';
 import { ArchitectureDiagram } from '../../../shared/architecture-diagram';
 import { Reveal } from '../../../shared/reveal';
+import { Spotlight } from '../../../shared/spotlight';
 import { GithubPanel } from './github-panel';
 
 @Component({
   selector: 'app-projects',
-  imports: [RouterLink, SlicePipe, Reveal, ArchitectureDiagram, GithubPanel],
+  imports: [RouterLink, SlicePipe, Reveal, Spotlight, ArchitectureDiagram, GithubPanel],
   template: `
     <section id="projects" class="section">
       <div class="container">
@@ -23,7 +24,7 @@ import { GithubPanel } from './github-panel';
 
         <ul class="grid">
           @for (project of projects; track project.slug) {
-            <li class="card" appReveal>
+            <li class="card" appReveal appSpotlight>
               <a
                 class="cover"
                 [routerLink]="['/projects', project.slug]"
@@ -91,7 +92,7 @@ import { GithubPanel } from './github-panel';
     }
 
     .card:hover {
-      border-color: var(--accent);
+      border-color: var(--line-strong);
       transform: translateY(-4px);
     }
 
@@ -121,9 +122,10 @@ import { GithubPanel } from './github-panel';
 
     h3 {
       margin-top: -0.4rem;
-      font-family: var(--font-serif);
-      font-weight: 400;
-      font-size: 1.9rem;
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      letter-spacing: var(--display-tracking);
+      font-size: 1.5rem;
       line-height: 1.1;
 
       a {

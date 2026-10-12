@@ -94,9 +94,10 @@ import { Reveal } from '../../../shared/reveal';
     }
 
     h3 {
-      font-family: var(--font-serif);
-      font-weight: 400;
-      font-size: clamp(1.75rem, 3.2vw, 2.4rem);
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      letter-spacing: var(--display-tracking);
+      font-size: clamp(1.5rem, 2.6vw, 2rem);
       line-height: 1.1;
     }
 
@@ -125,8 +126,10 @@ import { Reveal } from '../../../shared/reveal';
       }
 
       dd {
-        font-family: var(--font-serif);
-        font-size: 2rem;
+        font-family: var(--font-display);
+        font-weight: var(--display-weight);
+        letter-spacing: var(--display-tracking);
+        font-size: 1.65rem;
         line-height: 1;
         color: var(--accent);
       }

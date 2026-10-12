@@ -44,11 +44,12 @@
 h1 {
   max-width: 18ch;
   margin-top: 1rem;
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: clamp(2.75rem, 8vw, 6rem);
-  line-height: 0.98;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
 }
 
 .summary {
@@ -79,10 +80,16 @@ h1 {
   gap: 0.4rem;
 
   dd {
-    font-family: var(--font-serif);
-    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-family: var(--font-display);
+    font-weight: var(--display-weight);
+    letter-spacing: var(--display-tracking);
+    font-size: clamp(2rem, 4vw, 3rem);
     line-height: 1;
-    color: var(--accent);
+    width: fit-content;
+    background: var(--gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
   }
 
   dt {
@@ -198,9 +205,11 @@ h1 {
 }
 
 .lead {
-  font-family: var(--font-serif);
-  font-size: clamp(1.4rem, 2.6vw, 1.8rem);
-  line-height: 1.35;
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.2rem, 2vw, 1.45rem);
+  line-height: 1.45;
 }
 
 .main .bullets {
@@ -296,8 +305,10 @@ h1 {
 }
 
 .pager-title {
-  font-family: var(--font-serif);
-  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+  font-size: clamp(1.2rem, 2.4vw, 1.6rem);
   line-height: 1.15;
 }
 
@@ -314,8 +325,10 @@ h1 {
   border-radius: var(--radius);
 
   p {
-    font-family: var(--font-serif);
-    font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+    font-family: var(--font-display);
+    font-weight: var(--display-weight);
+    letter-spacing: var(--display-tracking);
+    font-size: clamp(1.15rem, 2.2vw, 1.4rem);
   }
 }
 

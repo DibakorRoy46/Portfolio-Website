@@ -49,6 +49,27 @@ export const profile: Profile = {
   ],
 };
 
+/** Shown in the scrolling strip under the hero. */
+export const coreTech: string[] = [
+  'C#',
+  '.NET 10',
+  'ASP.NET Core',
+  'Angular',
+  'TypeScript',
+  'SQL Server',
+  'Azure',
+  'RabbitMQ',
+  'Redis',
+  'Hangfire',
+  'SignalR',
+  'gRPC',
+  'EF Core',
+  'Dapper',
+  'Docker',
+  'Kubernetes',
+  'SAP SD',
+];
+
 export const stats: Stat[] = [
   { value: '5+', label: 'Years of experience' },
   { value: '250K+', label: 'Retail outlets supported' },

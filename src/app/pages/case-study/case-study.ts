@@ -4,11 +4,12 @@ import { RouterLink } from '@angular/router';
 import { Seo } from '../../core/seo';
 import { caseStudies, profile, sideProjects } from '../../data/portfolio.data';
 import { ArchitectureDiagram } from '../../shared/architecture-diagram';
+import { Spotlight } from '../../shared/spotlight';
 
 /** Detail page for a client case study (/work/:slug) or a personal project (/projects/:slug). */
 @Component({
   selector: 'app-case-study',
-  imports: [RouterLink, DecimalPipe, ArchitectureDiagram],
+  imports: [RouterLink, DecimalPipe, ArchitectureDiagram, Spotlight],
   templateUrl: './case-study.html',
   styleUrl: './case-study.scss',
 })

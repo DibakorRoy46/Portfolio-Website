@@ -175,11 +175,11 @@
   </div>
 
   <nav class="pager" aria-label="More projects">
-    <a class="pager-link" [routerLink]="['/', kind(), previous().slug]">
+    <a class="pager-link" appSpotlight [routerLink]="['/', kind(), previous().slug]">
       <span class="eyebrow"><span aria-hidden="true">←</span> Previous</span>
       <span class="pager-title">{{ previous().title }}</span>
     </a>
-    <a class="pager-link pager-link--next" [routerLink]="['/', kind(), next().slug]">
+    <a class="pager-link pager-link--next" appSpotlight [routerLink]="['/', kind(), next().slug]">
       <span class="eyebrow">Next <span aria-hidden="true">→</span></span>
       <span class="pager-title">{{ next().title }}</span>
     </a>
