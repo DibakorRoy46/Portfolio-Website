@@ -1,5 +1,6 @@
 import { Component, ElementRef, viewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { inject as injectAnalytics } from '@vercel/analytics';
 import { Footer } from './layout/footer';
 import { Header } from './layout/header';
 
@@ -23,6 +24,13 @@ import { Header } from './layout/header';
 })
 export class App {
   private readonly main = viewChild.required<ElementRef<HTMLElement>>('main');
+
+  constructor() {
+    // Initialize Vercel Analytics (only runs in browser)
+    if (typeof window !== 'undefined') {
+      injectAnalytics();
+    }
+  }
 
   // A plain #main link would resolve against <base href="/"> and leave the page.
   protected skipToContent(event: Event): void {
