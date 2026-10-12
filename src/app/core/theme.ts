@@ -42,10 +42,15 @@ export class Theme {
     // painting (a window hidden behind another), switch anyway; applying the
     // same theme again when the transition does run changes nothing.
     const fallback = view.setTimeout(() => this.apply(next), TRANSITION_GRACE_MS);
-    transition.finished.finally(() => {
-      view.clearTimeout(fallback);
-      root.classList.remove('theme-switch');
-    });
+    // A skipped transition (hidden window, another one starting) rejects its
+    // promises; the theme is applied either way, so there is nothing to report.
+    transition.ready.catch(() => undefined);
+    transition.finished
+      .catch(() => undefined)
+      .finally(() => {
+        view.clearTimeout(fallback);
+        root.classList.remove('theme-switch');
+      });
   }
 
   private apply(theme: ThemeName): void {

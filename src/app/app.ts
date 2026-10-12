@@ -1,10 +1,7 @@
 import { Component, ElementRef, viewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-<<<<<<< HEAD
-import { CommandPalette } from './layout/command-palette';
-=======
 import { inject as injectAnalytics } from '@vercel/analytics';
->>>>>>> cac74327f53213618c046e02acaa43fbb1a71348
+import { CommandPalette } from './layout/command-palette';
 import { Footer } from './layout/footer';
 import { Header } from './layout/header';
 

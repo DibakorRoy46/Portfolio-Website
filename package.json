@@ -21,12 +21,9 @@
     "@angular/platform-server": "^22.2.0",
     "@angular/router": "^22.2.0",
     "@angular/ssr": "^22.2.2",
-<<<<<<< HEAD
     "@fontsource-variable/geist": "^5.3.0",
     "@fontsource-variable/geist-mono": "^5.3.0",
-=======
     "@vercel/analytics": "^2.0.1",
->>>>>>> cac74327f53213618c046e02acaa43fbb1a71348
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
