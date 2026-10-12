@@ -32,6 +32,18 @@ npm run build
 
 The static site is written to `dist/portfolio/browser`.
 
+## Test and lint
+
+```bash
+npm test -- --watch=false
+```
+
+```bash
+npx ng lint
+```
+
+The tests check the content file for broken internal links, duplicate page addresses and missing project sections, so run them after editing `portfolio.data.ts`.
+
 ## Deploy to Vercel
 
 1. Push this folder to its own GitHub repository.

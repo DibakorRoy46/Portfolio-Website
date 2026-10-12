@@ -39,7 +39,7 @@ import { GithubPanel } from './github-panel';
                   <span class="status">In progress</span>
                 }
               </div>
-              <h3>
+              <h3 [style.view-transition-name]="'title-' + project.slug">
                 <a [routerLink]="['/projects', project.slug]">{{ project.title }}</a>
               </h3>
               <p class="summary">{{ project.summary }}</p>

@@ -15,9 +15,12 @@ export interface Profile {
   photoUrl: string;
   about: string[];
   now: string;
-  exploring: string;
   clients: string[];
   industries: string[];
+  /** How I work with a team, shown in the About section. */
+  workingStyle: Note[];
+  /** Conversation starters shown above the contact panel. */
+  topics: Note[];
 }
 
 export interface Stat {
@@ -28,11 +31,20 @@ export interface Stat {
 export type ExpertiseIcon =
   'integration' | 'distributed' | 'performance' | 'fullstack' | 'cloud' | 'leadership';
 
+/** A link to a project page on this site. */
+export interface RelatedLink {
+  label: string;
+  path: string;
+}
+
 export interface Expertise {
   icon: ExpertiseIcon;
   title: string;
   description: string;
   tools: string[];
+  /** One result that backs the claim, and the project it comes from. */
+  proof: Stat;
+  related?: RelatedLink;
 }
 
 export interface Role {
@@ -40,15 +52,22 @@ export interface Role {
   company: string;
   location: string;
   period: string;
+  /** First and last month as YYYY-MM; no end means the role is current. */
+  start: string;
+  end?: string;
   summary: string;
   impact: Stat[];
   highlights: string[];
   stack: string[];
+  projects: RelatedLink[];
 }
 
 export interface Principle {
   title: string;
   body: string;
+  /** Where the principle shows up in real work. */
+  example: string;
+  related: RelatedLink;
 }
 
 export interface Milestone {
@@ -71,6 +90,9 @@ export interface Layer {
 /** An image in /public shown in a project's gallery. */
 export interface Screenshot {
   src: string;
+  /** Pixel size of the file, so the browser can reserve the space. */
+  width: number;
+  height: number;
   alt: string;
   caption: string;
 }

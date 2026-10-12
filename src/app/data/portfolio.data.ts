@@ -24,7 +24,7 @@ export const profile: Profile = {
   email: 'dibakorroy56@gmail.com',
   github: 'https://github.com/DibakorRoy46',
   linkedin: 'https://linkedin.com/in/dibakorroy',
-  resumeUrl: '',
+  resumeUrl: '/Dibakor-Roy-Resume.pdf',
   photoUrl: '',
   about: [
     'Senior Software Engineer with 5+ years of experience designing and delivering scalable enterprise applications with .NET, C#, ASP.NET Core, Angular, Azure, SQL Server and microservices.',
@@ -32,10 +32,40 @@ export const profile: Profile = {
     'Most of my work sits in sales and distribution: orders, inventory, challans, delivery, returns, claims and commissions, and the integrations that keep those processes consistent across HRMS, DMS, SAP and VAT platforms. That domain knowledge lets me turn complex business rules into software that field teams and distributors rely on every day.',
     'Alongside delivery, I lead technically and mentor other engineers, with growing ownership of architecture strategy across client engagements.',
   ],
-  now: 'Building Mediato and going deeper into .NET 10, SignalR and distributed systems.',
-  exploring:
-    'Bringing AI into enterprise software: retrieval-augmented assistants over sales and inventory data, built on .NET and Angular.',
-  clients: ['Unilever', 'JTI', 'A.O. Smith', 'Arla', 'AutoCrop Care'],
+  now: 'Learning and working on AI: RAG and LLM optimization. Bringing AI into enterprise software, with retrieval-augmented assistants over sales and inventory data, built on .NET and Angular.',
+  clients: ['Unilever', 'JTI', 'A.O. Smith', 'Arla', 'AutoCrop Care', 'Lipton Tea', 'TDCL'],
+  workingStyle: [
+    {
+      title: 'Specs before code',
+      body: 'I write the requirement down first: an SRS, an API contract or a diagram. It is cheaper to argue with a document than with a release.',
+    },
+    {
+      title: 'Close to the business',
+      body: 'I work directly with stakeholders to turn complex requirements into something that can be built, tested and explained.',
+    },
+    {
+      title: 'Reviews that teach',
+      body: 'Code review is where I mentor. Five junior developers have come through that process, and production incidents fell by 30%.',
+    },
+    {
+      title: 'AI as a tool, not a shortcut',
+      body: 'I use Claude and GitHub Copilot in my daily workflow, and I teach the team to check what they produce.',
+    },
+  ],
+  topics: [
+    {
+      title: 'An integration that has to be right',
+      body: 'SAP, HRMS, VAT or payment systems that must agree with each other, every time.',
+    },
+    {
+      title: 'A system slowing down under load',
+      body: 'APIs, queries or batch jobs that were fine at launch and are not any more.',
+    },
+    {
+      title: 'A codebase that needs clearer boundaries',
+      body: 'Moving towards Clean Architecture, messaging or services without stopping delivery.',
+    },
+  ],
   industries: [
     'FMCG',
     'Sales & Distribution',
@@ -84,6 +114,8 @@ export const stats: Stat[] = [
 export const expertise: Expertise[] = [
   {
     icon: 'integration',
+    proof: { value: '500+', label: 'Distributors kept in real-time sync' },
+    related: { label: 'HRMS–DMS Integration', path: '/work/hrms-dms-integration' },
     title: 'Enterprise integration',
     description:
       'Connecting SAP SD, HRMS, DMS, VAT and payment platforms so data agrees across systems. I build REST and XML services, two-way sync through background jobs, and the validation that keeps master data consistent.',
@@ -91,6 +123,8 @@ export const expertise: Expertise[] = [
   },
   {
     icon: 'distributed',
+    proof: { value: 'At-least-once', label: 'Delivery across 4 service databases' },
+    related: { label: 'E-Commerce Microservices', path: '/projects/ecommerce-microservices' },
     title: 'Distributed and event-driven systems',
     description:
       'Microservices and modular monoliths on Clean Architecture, DDD and CQRS. Messaging with the Outbox pattern, idempotent processing and retries, so work is neither lost nor done twice.',
@@ -98,6 +132,11 @@ export const expertise: Expertise[] = [
   },
   {
     icon: 'performance',
+    proof: { value: '700ms', label: 'Challan processing, down from 2.5s' },
+    related: {
+      label: 'Online Sales & Distribution',
+      path: '/work/online-sales-distribution-system',
+    },
     title: 'Performance and scale',
     description:
       'Platforms serving 6,000+ concurrent users and 200K+ daily transactions. Query and index tuning, caching and asynchronous processing brought average API response time from 1.2s to under 500ms.',
@@ -105,6 +144,8 @@ export const expertise: Expertise[] = [
   },
   {
     icon: 'fullstack',
+    proof: { value: 'Order → invoice', label: 'One workflow from capture to final invoice' },
+    related: { label: 'Tertiary Sales Module', path: '/work/tertiary-sales-module' },
     title: 'Full-stack delivery',
     description:
       'Complete modules from database to screen in ASP.NET Core and Angular: order-to-cash, inventory, challans, claims and returns, commissions and reporting.',
@@ -112,6 +153,7 @@ export const expertise: Expertise[] = [
   },
   {
     icon: 'cloud',
+    proof: { value: '50%', label: 'Less manual deployment effort' },
     title: 'Cloud and DevOps',
     description:
       'Azure Functions for heavy batch work, App Service and AKS for hosting, and automated pipelines that cut manual deployment effort by 50%.',
@@ -119,6 +161,7 @@ export const expertise: Expertise[] = [
   },
   {
     icon: 'leadership',
+    proof: { value: '30%', label: 'Fewer production incidents' },
     title: 'Technical leadership',
     description:
       'Architecture decisions on async processing, caching, messaging and integration. Mentoring junior developers through code reviews and Clean Architecture training, which reduced production incidents by 30%.',
@@ -129,26 +172,45 @@ export const expertise: Expertise[] = [
 export const principles: Principle[] = [
   {
     title: 'Reliability before speed',
+    example:
+      'On the Field Order platform, sync jobs are guarded against concurrent execution, so an order never reaches SAP twice.',
+    related: { label: 'Field Order & SAP Integration', path: '/work/field-order-sap-integration' },
     body: 'Money and stock move through these systems, so every message has to be processed exactly as intended. I use the Outbox pattern, idempotent handlers, retries and concurrency guards so work is neither lost nor done twice.',
   },
   {
     title: 'Asynchronous by default',
+    example:
+      'In the Technician Sales Module, RabbitMQ and Hangfire carry the follow-up work, so recording a sale never waits on it.',
+    related: { label: 'Technician Sales Module', path: '/work/technician-sales-module' },
     body: 'Anything that does not need an immediate answer leaves the request path. RabbitMQ and Hangfire absorb the spikes, and the API stays fast for the person in the field.',
   },
   {
     title: 'Measure, then tune',
+    example: 'Challan processing on the Online Sales platform went from 2.5s to 700ms.',
+    related: {
+      label: 'Online Sales & Distribution',
+      path: '/work/online-sales-distribution-system',
+    },
     body: 'Performance work starts from the slow query or the hot path, not from a guess. Indexing, query tuning, Redis caching and separate read and write paths took APIs from 1.2s to under 500ms.',
   },
   {
     title: 'Architecture that fits the problem',
+    example: 'SalesPulse uses Clean Architecture layers and stops there.',
+    related: { label: 'SalesPulse', path: '/projects/salespulse' },
     body: 'Clean Architecture and DDD where the domain is complex, and CQRS only where reads and writes really differ. SalesPulse deliberately skips CQRS because it does not need it.',
   },
   {
     title: 'Integration is a product',
+    example:
+      'The HRMS–DMS integration keeps two systems in step for 500+ distributors, in real time.',
+    related: { label: 'HRMS–DMS Integration', path: '/work/hrms-dms-integration' },
     body: 'Contracts, validation and reconciliation matter as much as the code behind them. Standardizing REST and XML contracts cut new-client integration time by 30%.',
   },
   {
     title: 'Write it down, automate it',
+    example:
+      'The Issue Tracker ships with architecture docs, 350 automated tests and a recorded tutorial.',
+    related: { label: 'Issue Tracker', path: '/projects/issue-tracker' },
     body: 'SRS documents, architecture diagrams and API contracts keep teams aligned. CI/CD pipelines make a release routine instead of risky.',
   },
 ];
@@ -225,9 +287,9 @@ export const caseStudies: Project[] = [
     role: 'Built the module end to end: .NET 10 backend, Angular front end, messaging and background processing.',
     contributions: [
       'Built the full module, covering challans, promotions, commissions, returns and claims.',
-      'Processes 200,000+ daily transactions with zero data loss.',
       'Used RabbitMQ and Hangfire to run heavy work asynchronously and in the background.',
       'Engineered Azure Functions to process multi-terabyte datasets, cutting batch time from several hours to under 30 minutes.',
+      'Processes 200,000+ daily transactions with zero data loss.',
     ],
     engineering: [
       {
@@ -453,11 +515,20 @@ export const experience: Role[] = [
     company: 'Computer Ease Limited',
     location: 'Dhaka, Bangladesh',
     period: 'Sep 2023 – Present',
+    start: '2023-09',
+    projects: [
+      { label: 'Online Sales & Distribution', path: '/work/online-sales-distribution-system' },
+      { label: 'Technician Sales Module', path: '/work/technician-sales-module' },
+      { label: 'HRMS–DMS Integration', path: '/work/hrms-dms-integration' },
+      { label: 'Field Order & SAP Integration', path: '/work/field-order-sap-integration' },
+      { label: 'Tertiary Sales Module', path: '/work/tertiary-sales-module' },
+      { label: 'Doorbin & Lever Bazar', path: '/work/doorbin-lever-bazar' },
+    ],
     summary:
       'Enterprise sales, distribution, inventory and integration systems for clients including Unilever, A.O. Smith and AutoCrop Care.',
     impact: [
       { value: '200K+', label: 'Daily transactions processed' },
-      { value: '97%', label: 'Fewer reconciliation errors' },
+      { value: '30%', label: 'Faster new-client integration' },
       { value: '<500ms', label: 'Average API response, from 1.2s' },
     ],
     highlights: [
@@ -491,6 +562,9 @@ export const experience: Role[] = [
     company: 'Synergy Interface Ltd',
     location: 'Dhaka, Bangladesh',
     period: 'Jul 2021 – Aug 2023',
+    start: '2021-07',
+    end: '2023-08',
+    projects: [],
     summary:
       'Business applications across life insurance, automobile garage ERP, point of sale, inventory, HR and payroll.',
     impact: [
@@ -624,27 +698,37 @@ export const sideProjects: Project[] = [
     screenshots: [
       {
         src: '/projects/issue-tracker/raise-ticket.webp',
+        width: 1280,
+        height: 720,
         alt: 'The raise-a-ticket form with client, type, priority, category and module fields',
         caption:
           'Raising a ticket: the client sets the priority, and support decides the severity.',
       },
       {
         src: '/projects/issue-tracker/triage.webp',
+        width: 1280,
+        height: 720,
         alt: 'A ticket open in triage, showing attachments, the conversation log and the SLA panel',
         caption: 'Triage: setting the severity stamps the SLA deadline from that client’s targets.',
       },
       {
         src: '/projects/issue-tracker/reports-overview.webp',
+        width: 1280,
+        height: 720,
         alt: 'The reports overview with raised, attended, resolved and sent-back counts',
         caption: 'Reports overview: volumes, response times and SLA compliance for a period.',
       },
       {
         src: '/projects/issue-tracker/reports-breakdown.webp',
+        width: 1280,
+        height: 720,
         alt: 'A report table breaking tickets down by severity',
         caption: 'Breakdown by severity, with CSV export.',
       },
       {
         src: '/projects/issue-tracker/audit-log.webp',
+        width: 1280,
+        height: 720,
         alt: 'The audit log listing configuration changes with who made them and when',
         caption: 'Audit log: every change with its old and new value. Entries cannot be edited.',
       },
@@ -1131,7 +1215,7 @@ export const timeline: Milestone[] = [
   {
     when: '2026',
     title: 'Built Mediato',
-    detail: 'Deeper into .NET 10, SignalR and distributed systems',
+    detail: 'Now working on AI, RAG and LLM optimization',
   },
 ];
 
@@ -1141,3 +1225,21 @@ export const education: Education = {
   period: 'Jun 2017 – Jun 2022',
   result: 'CGPA 3.80 / 4.00',
 };
+
+/** Skills highlighted in the Skills section: the ones named in my profile summary. */
+export const coreSkills: ReadonlySet<string> = new Set([
+  'C#',
+  '.NET Framework to .NET 10',
+  'ASP.NET Core',
+  'Angular 14–20',
+  'Microservices',
+  'Event-Driven',
+  'Distributed Systems',
+  'Clean Architecture',
+  'DDD',
+  'CQRS',
+  'SAP SD',
+  'SQL Server (performance tuning, indexing)',
+  'Azure Functions',
+  'Azure App Service',
+]);

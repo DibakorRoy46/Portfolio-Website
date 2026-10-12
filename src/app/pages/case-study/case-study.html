@@ -12,7 +12,7 @@
         <span class="status">In progress</span>
       }
     </p>
-    <h1>{{ project().title }}</h1>
+    <h1 [style.view-transition-name]="'title-' + project().slug">{{ project().title }}</h1>
     <p class="summary">{{ project().summary }}</p>
     @if (project().repo; as repo) {
       <a class="btn repo" [href]="repo" target="_blank" rel="noopener">
@@ -48,7 +48,13 @@
           @for (shot of screenshots; track shot.src) {
             <figure>
               <a [href]="shot.src" target="_blank" rel="noopener">
-                <img [src]="shot.src" [alt]="shot.alt" loading="lazy" />
+                <img
+                  [src]="shot.src"
+                  [alt]="shot.alt"
+                  [width]="shot.width"
+                  [height]="shot.height"
+                  loading="lazy"
+                />
               </a>
               <figcaption>{{ shot.caption }}</figcaption>
             </figure>

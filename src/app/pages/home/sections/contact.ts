@@ -13,8 +13,20 @@ import { Spotlight } from '../../../shared/spotlight';
           <h2 class="section-title">Contact</h2>
         </div>
 
-        <div class="panel" appSpotlight>
-          <p class="lead">Have a role or a project in mind? I’d like to hear about it.</p>
+        <ul class="topics">
+          @for (topic of profile.topics; track topic.title) {
+            <li>
+              <h3>{{ topic.title }}</h3>
+              <p>{{ topic.body }}</p>
+            </li>
+          }
+        </ul>
+
+        <div class="panel glow-border" appSpotlight>
+          <p class="lead">
+            If any of these sound familiar, or you have a role or a project in mind, I’d like to
+            hear about it.
+          </p>
           <a class="email" href="mailto:{{ profile.email }}">{{ profile.email }}</a>
 
           <div class="foot">
@@ -32,6 +44,13 @@ import { Spotlight } from '../../../shared/spotlight';
                   GitHub <span aria-hidden="true">↗</span>
                 </a>
               </li>
+              @if (profile.resumeUrl) {
+                <li>
+                  <a class="btn" [href]="profile.resumeUrl" download>
+                    Resume <span aria-hidden="true">↓</span>
+                  </a>
+                </li>
+              }
             </ul>
             <p class="where">{{ profile.location }} · {{ profile.timezone }}</p>
           </div>
@@ -40,6 +59,38 @@ import { Spotlight } from '../../../shared/spotlight';
     </section>
   `,
   styles: `
+    .topics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1rem;
+
+      li {
+        padding: 1.3rem 1.4rem;
+        background: var(--bg-elev);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+      }
+
+      h3 {
+        margin-bottom: 0.4rem;
+        font-size: 1.05rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      p {
+        font-size: 0.92rem;
+        color: var(--text-muted);
+      }
+    }
+
+    @media (max-width: 820px) {
+      .topics {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .panel {
       position: relative;
       padding: clamp(1.75rem, 5vw, 4rem);

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { expertise } from '../../../data/portfolio.data';
 import { ExpertiseIcon } from '../../../data/portfolio.models';
 import { Reveal } from '../../../shared/reveal';
@@ -25,7 +26,7 @@ const ICONS: Record<ExpertiseIcon, string[]> = {
 
 @Component({
   selector: 'app-expertise',
-  imports: [Reveal, Spotlight],
+  imports: [RouterLink, Reveal, Spotlight],
   template: `
     <section id="expertise" class="section">
       <div class="container">
@@ -57,6 +58,17 @@ const ICONS: Record<ExpertiseIcon, string[]> = {
                   <li>{{ tool }}</li>
                 }
               </ul>
+              <div class="proof">
+                <p>
+                  <span class="proof-value gradient-text">{{ area.proof.value }}</span>
+                  <span class="proof-label">{{ area.proof.label }}</span>
+                </p>
+                @if (area.related; as related) {
+                  <a class="text-link" [routerLink]="related.path">
+                    {{ related.label }} <span aria-hidden="true">→</span>
+                  </a>
+                }
+              </div>
             </li>
           }
         </ul>
@@ -144,6 +156,35 @@ const ICONS: Record<ExpertiseIcon, string[]> = {
       padding-top: 0.5rem;
     }
 
+    .proof {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 0.6rem 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.88rem;
+
+      p {
+        display: grid;
+        gap: 0.2rem;
+      }
+    }
+
+    .proof-value {
+      width: fit-content;
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      font-size: 1.5rem;
+      line-height: 1.1;
+      letter-spacing: var(--display-tracking);
+    }
+
+    .proof-label {
+      color: var(--text-muted);
+    }
+
     // The closing card runs left to right: icon, copy, tools.
     @media (min-width: 961px) {
       .area:nth-child(6) {
@@ -156,10 +197,16 @@ const ICONS: Record<ExpertiseIcon, string[]> = {
         }
 
         .tags {
-          flex: 0 0 18rem;
+          flex: 0 0 15rem;
           margin-top: 0;
           padding-top: 0;
-          justify-content: flex-end;
+        }
+
+        .proof {
+          flex: 0 0 13rem;
+          padding: 0 0 0 1.5rem;
+          border-top: 0;
+          border-left: 1px solid var(--line);
         }
       }
     }

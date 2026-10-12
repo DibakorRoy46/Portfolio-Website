@@ -43,7 +43,9 @@ import { SystemMap } from './system-map';
               </a>
               <a class="btn" routerLink="/" fragment="contact">Get in touch</a>
               @if (profile.resumeUrl) {
-                <a class="btn" [href]="profile.resumeUrl" download>Download resume</a>
+                <a class="btn" [href]="profile.resumeUrl" target="_blank" rel="noopener">
+                  View resume <span aria-hidden="true">↗</span>
+                </a>
               }
             </div>
           </div>

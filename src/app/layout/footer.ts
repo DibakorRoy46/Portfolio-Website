@@ -24,6 +24,13 @@ import { profile } from '../data/portfolio.data';
                 GitHub
               </a>
             </li>
+            @if (profile.resumeUrl) {
+              <li>
+                <a class="text-link" [href]="profile.resumeUrl" target="_blank" rel="noopener">
+                  Resume
+                </a>
+              </li>
+            }
           </ul>
         </div>
 

@@ -158,6 +158,11 @@ h1 {
   }
 }
 
+// Recordings are 16:9; reserving the shape stops the page jumping as they load.
+.shots video {
+  aspect-ratio: 16 / 9;
+}
+
 // The first video is the highlight and takes the full row.
 .shots--videos figure:first-child {
   grid-column: 1 / -1;

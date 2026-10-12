@@ -1,11 +1,12 @@
 import { DecimalPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { principles } from '../../../data/portfolio.data';
 import { Reveal } from '../../../shared/reveal';
 
 @Component({
   selector: 'app-approach',
-  imports: [DecimalPipe, Reveal],
+  imports: [RouterLink, DecimalPipe, Reveal],
   template: `
     <section id="approach" class="section">
       <div class="container">
@@ -24,6 +25,13 @@ import { Reveal } from '../../../shared/reveal';
               <div>
                 <h3>{{ principle.title }}</h3>
                 <p>{{ principle.body }}</p>
+                <p class="example">
+                  <span class="eyebrow">In practice</span>
+                  {{ principle.example }}
+                  <a class="text-link" [routerLink]="principle.related.path">
+                    {{ principle.related.label }} <span aria-hidden="true">→</span>
+                  </a>
+                </p>
               </div>
             </li>
           }
@@ -71,6 +79,23 @@ import { Reveal } from '../../../shared/reveal';
 
     p {
       color: var(--text-muted);
+    }
+
+    .example {
+      display: grid;
+      gap: 0.35rem;
+      margin-top: 1rem;
+      padding: 0.9rem 1.1rem;
+      background: var(--bg-elev);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      font-size: 0.92rem;
+      color: var(--text);
+
+      a {
+        width: fit-content;
+        color: var(--accent);
+      }
     }
 
     @media (max-width: 820px) {

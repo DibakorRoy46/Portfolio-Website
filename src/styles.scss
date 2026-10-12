@@ -43,8 +43,8 @@
 :root {
   @include dark-tokens;
 
-  --font-sans: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+  --font-sans: 'Geist Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'Cascadia Code', Consolas, monospace;
 
   // Headings and figures: the sans face, set heavy and tight.
   --font-display: var(--font-sans);
@@ -364,5 +364,87 @@ main {
   *::after {
     transition-duration: 0.01ms !important;
     animation: none !important;
+  }
+}
+
+// Film grain over the whole page, for depth. Sits under the header.
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+// A band of the accent gradient that travels round an element's border.
+@property --border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.glow-border {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    padding: 1.5px;
+    border-radius: inherit;
+    background: conic-gradient(
+      from var(--border-angle),
+      transparent 0 62%,
+      var(--accent),
+      var(--accent-2),
+      var(--accent-3),
+      transparent 100%
+    );
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    animation: border-travel 7s linear infinite;
+    pointer-events: none;
+  }
+}
+
+@keyframes border-travel {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+// Page changes: a title shared by two pages glides between its positions.
+::view-transition-group(*) {
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+// Theme changes: the new theme opens in a circle from the control pressed.
+.theme-switch {
+  // Shared titles would cross-fade on their own layer; keep them in the page.
+  [style*='view-transition-name'] {
+    view-transition-name: none !important;
+  }
+
+  &::view-transition-old(root) {
+    animation: none;
+  }
+
+  &::view-transition-new(root) {
+    animation: theme-reveal 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+}
+
+@keyframes theme-reveal {
+  from {
+    clip-path: circle(0 at var(--reveal-x) var(--reveal-y));
+  }
+
+  to {
+    clip-path: circle(150vmax at var(--reveal-x) var(--reveal-y));
   }
 }

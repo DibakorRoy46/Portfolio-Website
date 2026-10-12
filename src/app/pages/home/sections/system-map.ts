@@ -1,10 +1,32 @@
 import { Component } from '@angular/core';
+import { Tilt } from '../../../shared/tilt';
 
-/** Decorative hero diagram of the kind of system described across the site. */
+/** A connection in the diagram, and when its travelling dot sets off. */
+interface Wire {
+  d: string;
+  delay: string;
+}
+
+const WIRES: Wire[] = [
+  { d: 'M220 60V100', delay: '0s' },
+  { d: 'M220 150V190', delay: '0.5s' },
+  { d: 'M145 215H115', delay: '1s' },
+  { d: 'M295 215H325', delay: '1.2s' },
+  { d: 'M220 240V280', delay: '1.5s' },
+  { d: 'M380 240V280', delay: '1.8s' },
+  { d: 'M220 330V370', delay: '2.1s' },
+  { d: 'M380 330V395H315', delay: '2.3s' },
+];
+
+/**
+ * Decorative hero diagram of the kind of system described across the site.
+ * Dots travel along the connections, and the card tilts towards the pointer.
+ */
 @Component({
   selector: 'app-system-map',
+  imports: [Tilt],
   template: `
-    <figure class="map">
+    <figure class="map glow-border" appTilt>
       <figcaption>
         <span class="dot" aria-hidden="true"></span>
         A typical system I build
@@ -15,14 +37,21 @@ import { Component } from '@angular/core';
         aria-label="Angular and mobile clients call an ASP.NET Core API. .NET services behind it use Redis for caching, RabbitMQ and Hangfire for background work, and SQL Server for data, and integrate with SAP SD, HRMS and VAT systems."
       >
         <g class="wires">
-          <path d="M220 60V100" />
-          <path d="M220 150V190" />
-          <path d="M145 215H115" />
-          <path d="M295 215H325" />
-          <path d="M220 240V280" />
-          <path d="M380 240V280" />
-          <path d="M220 330V370" />
-          <path d="M380 330V395H315" />
+          @for (wire of wires; track wire.d) {
+            <path [attr.d]="wire.d" />
+          }
+        </g>
+        <g class="packets" aria-hidden="true">
+          @for (wire of wires; track wire.d) {
+            <circle r="3">
+              <animateMotion
+                dur="2.6s"
+                repeatCount="indefinite"
+                [attr.path]="wire.d"
+                [attr.begin]="wire.delay"
+              />
+            </circle>
+          }
         </g>
 
         <g class="node">
@@ -75,7 +104,9 @@ import { Component } from '@angular/core';
       background: var(--bg-elev);
       border: 1px solid var(--line);
       border-radius: calc(var(--radius) + 4px);
-      box-shadow: 0 30px 80px -40px var(--accent-soft);
+      box-shadow: var(--shadow);
+      transition: transform 0.25s ease-out;
+      will-change: transform;
     }
 
     figcaption {
@@ -104,15 +135,24 @@ import { Component } from '@angular/core';
 
     .wires path {
       fill: none;
-      stroke: var(--accent);
+      stroke: var(--line-strong);
       stroke-width: 1.4;
       stroke-dasharray: 4 6;
-      animation: flow 1.1s linear infinite;
+    }
+
+    .packets circle {
+      fill: var(--accent);
+      filter: drop-shadow(0 0 4px var(--accent));
     }
 
     .node rect {
       fill: var(--bg);
       stroke: var(--line-strong);
+      transition: stroke 0.2s ease;
+    }
+
+    .node:hover rect {
+      stroke: var(--accent);
     }
 
     .node--core rect {
@@ -136,11 +176,13 @@ import { Component } from '@angular/core';
       fill: var(--text-muted);
     }
 
-    @keyframes flow {
-      to {
-        stroke-dashoffset: -20;
+    @media (prefers-reduced-motion: reduce) {
+      .packets {
+        display: none;
       }
     }
   `,
 })
-export class SystemMap {}
+export class SystemMap {
+  protected readonly wires = WIRES;
+}

@@ -4,6 +4,8 @@ import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs';
 import { Theme } from '../core/theme';
 import { profile } from '../data/portfolio.data';
+import { CommandPaletteState } from './command-palette-state';
+import { NAV_LINKS } from './nav-links';
 
 @Component({
   selector: 'app-header',
@@ -13,20 +15,13 @@ import { profile } from '../data/portfolio.data';
 })
 export class Header {
   private readonly theme = inject(Theme);
+  protected readonly palette = inject(CommandPaletteState);
 
   protected readonly profile = profile;
   protected readonly menuOpen = signal(false);
   /** Id of the home section currently in the middle of the screen. */
   protected readonly active = signal<string | null>(null);
-  protected readonly links = [
-    { label: 'Expertise', fragment: 'expertise' },
-    { label: 'Work', fragment: 'work' },
-    { label: 'Experience', fragment: 'experience' },
-    { label: 'Projects', fragment: 'projects' },
-    { label: 'Skills', fragment: 'skills' },
-    { label: 'About', fragment: 'about' },
-    { label: 'Contact', fragment: 'contact' },
-  ];
+  protected readonly links = NAV_LINKS;
 
   constructor() {
     const injector = inject(Injector);
@@ -65,7 +60,7 @@ export class Header {
     destroyRef.onDestroy(() => observer?.disconnect());
   }
 
-  protected toggleTheme(): void {
-    this.theme.toggle();
+  protected toggleTheme(event: Event): void {
+    this.theme.toggle(event.currentTarget as Element);
   }
 }
