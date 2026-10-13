@@ -141,6 +141,15 @@ export interface Project {
   metrics: Stat[];
   repo?: string;
   inProgress?: boolean;
+  /** Employer the work was done at. Client work only. */
+  company?: string;
+  /** The functional areas of the whole system, beyond the parts I built. */
+  modules?: ModuleGroup[];
+}
+
+export interface ModuleGroup {
+  title: string;
+  items: string[];
 }
 
 export interface SkillGroup {

@@ -2,12 +2,22 @@ import { DecimalPipe, SlicePipe } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { caseStudies } from '../../../data/portfolio.data';
+import { Project } from '../../../data/portfolio.models';
 import { Reveal } from '../../../shared/reveal';
 
-// Technologies offered as filters, matched against each project's stack.
-const FILTER_NAMES = ['Angular', 'SQL Server', 'SAP', 'RabbitMQ', 'Hangfire', 'Redis', 'Azure'];
+/** A filter chip: an employer, or a technology matched against each project's stack. */
+interface Filter {
+  kind: 'company' | 'tech';
+  name: string;
+  count: number;
+}
 
-const uses = (stack: string[], tech: string) => stack.some((item) => item.includes(tech));
+const TECH_NAMES = ['Angular', 'SQL Server', 'SAP', 'RabbitMQ', 'Hangfire', 'Redis', 'Azure'];
+
+const matches = (project: Project, filter: Filter) =>
+  filter.kind === 'company'
+    ? project.company === filter.name
+    : project.stack.some((item) => item.includes(filter.name));
 
 @Component({
   selector: 'app-work',
@@ -20,10 +30,11 @@ const uses = (stack: string[], tech: string) => stack.some((item) => item.includ
           <h2 class="section-title">Selected work</h2>
         </div>
         <p class="section-intro">
-          Client systems in production, each with the problem, what I built and how it works.
+          Systems in production at two companies, each with the problem, what I built and how it
+          works.
         </p>
 
-        <div class="filters" role="group" aria-label="Filter projects by technology">
+        <div class="filters" role="group" aria-label="Filter projects by company or technology">
           <button
             type="button"
             class="chip"
@@ -37,9 +48,10 @@ const uses = (stack: string[], tech: string) => stack.some((item) => item.includ
             <button
               type="button"
               class="chip"
-              [class.is-on]="filter() === option.name"
-              [attr.aria-pressed]="filter() === option.name"
-              (click)="filter.set(option.name)"
+              [class.chip--tech]="option.kind === 'tech'"
+              [class.is-on]="filter() === option"
+              [attr.aria-pressed]="filter() === option"
+              (click)="filter.set(option)"
             >
               {{ option.name }} <span>{{ option.count }}</span>
             </button>
@@ -52,7 +64,12 @@ const uses = (stack: string[], tech: string) => stack.some((item) => item.includ
               <a class="work-row" [routerLink]="['/work', study.slug]">
                 <span class="num" aria-hidden="true">{{ i + 1 | number: '2.0' }}</span>
                 <div class="body">
-                  <p class="eyebrow">{{ study.context }}</p>
+                  <p class="eyebrow">
+                    {{ study.context }}
+                    @if (study.company) {
+                      <span class="company">{{ study.company }}</span>
+                    }
+                  </p>
                   <h3 [style.view-transition-name]="'title-' + study.slug">{{ study.title }}</h3>
                   <p class="summary">{{ study.summary }}</p>
                   <ul class="points">
@@ -100,10 +117,10 @@ const uses = (stack: string[], tech: string) => stack.some((item) => item.includ
       gap: 0.5rem;
       padding: 0.4rem 0.5rem 0.4rem 0.9rem;
       background: var(--bg-elev);
-      border: 1px solid var(--line);
+      border: 1px solid var(--line-strong);
       border-radius: 999px;
       font-size: 0.88rem;
-      color: var(--text-muted);
+      font-weight: 500;
       cursor: pointer;
       transition:
         border-color 0.2s ease,
@@ -120,11 +137,11 @@ const uses = (stack: string[], tech: string) => stack.some((item) => item.includ
         border-radius: 999px;
         font-family: var(--font-mono);
         font-size: 0.7rem;
+        font-weight: 400;
       }
 
       &:hover {
-        border-color: var(--line-strong);
-        color: var(--text);
+        border-color: var(--text);
       }
 
       &.is-on {
@@ -137,6 +154,18 @@ const uses = (stack: string[], tech: string) => stack.some((item) => item.includ
           background: rgb(0 0 0 / 0.18);
           color: inherit;
         }
+      }
+    }
+
+    // Technology chips are quieter than the company ones.
+    .chip--tech:not(.is-on) {
+      border-color: var(--line);
+      font-weight: 400;
+      color: var(--text-muted);
+
+      &:hover {
+        border-color: var(--line-strong);
+        color: var(--text);
       }
     }
 
@@ -164,6 +193,21 @@ const uses = (stack: string[], tech: string) => stack.some((item) => item.includ
       font-family: var(--font-mono);
       font-size: 0.8rem;
       color: var(--text-muted);
+    }
+
+    .eyebrow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.4rem 0.75rem;
+    }
+
+    .company {
+      padding: 0.1rem 0.55rem;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
     }
 
     h3 {
@@ -294,16 +338,23 @@ const uses = (stack: string[], tech: string) => stack.some((item) => item.includ
 export class WorkSection {
   protected readonly studies = caseStudies;
 
-  protected readonly filters = FILTER_NAMES.map((name) => ({
-    name,
-    count: caseStudies.filter((study) => uses(study.stack, name)).length,
-  })).filter((option) => option.count > 1);
+  protected readonly filters: Filter[] = [
+    ...[...new Set(caseStudies.flatMap((study) => (study.company ? [study.company] : [])))].map(
+      (name): Filter => ({ kind: 'company', name, count: 0 }),
+    ),
+    ...TECH_NAMES.map((name): Filter => ({ kind: 'tech', name, count: 0 })),
+  ]
+    .map((filter) => ({
+      ...filter,
+      count: caseStudies.filter((study) => matches(study, filter)).length,
+    }))
+    .filter((filter) => filter.count > 1);
 
-  /** The technology being filtered on, or null for every project. */
-  protected readonly filter = signal<string | null>(null);
+  /** The active chip, or null for every project. */
+  protected readonly filter = signal<Filter | null>(null);
 
   protected readonly visible = computed(() => {
     const filter = this.filter();
-    return filter ? caseStudies.filter((study) => uses(study.stack, filter)) : caseStudies;
+    return filter ? caseStudies.filter((study) => matches(study, filter)) : caseStudies;
   });
 }

@@ -218,6 +218,7 @@ export const principles: Principle[] = [
 export const caseStudies: Project[] = [
   {
     slug: 'online-sales-distribution-system',
+    company: 'Computer Ease',
     title: 'Online Sales & Distribution System',
     context: 'FMCG & Tobacco',
     summary:
@@ -278,6 +279,7 @@ export const caseStudies: Project[] = [
   },
   {
     slug: 'technician-sales-module',
+    company: 'Computer Ease',
     title: 'Technician Sales Module',
     context: 'Sales & Distribution',
     summary:
@@ -327,6 +329,7 @@ export const caseStudies: Project[] = [
   },
   {
     slug: 'hrms-dms-integration',
+    company: 'Computer Ease',
     title: 'HRMS–DMS Integration',
     context: 'Unilever DFF',
     summary:
@@ -371,6 +374,7 @@ export const caseStudies: Project[] = [
   },
   {
     slug: 'field-order-sap-integration',
+    company: 'Computer Ease',
     title: 'Field Order & SAP Integration Platform',
     context: 'AutoCrop Care',
     summary:
@@ -418,6 +422,7 @@ export const caseStudies: Project[] = [
   },
   {
     slug: 'tertiary-sales-module',
+    company: 'Computer Ease',
     title: 'Tertiary Sales Module',
     context: 'Pureit (A.O. Smith)',
     summary:
@@ -466,6 +471,7 @@ export const caseStudies: Project[] = [
   },
   {
     slug: 'doorbin-lever-bazar',
+    company: 'Computer Ease',
     title: 'Doorbin & Lever Bazar',
     context: 'Unilever',
     summary:
@@ -505,6 +511,347 @@ export const caseStudies: Project[] = [
     metrics: [
       { value: '6,000+', label: 'Sales reps' },
       { value: '250K+', label: 'Retail outlets' },
+    ],
+  },
+  {
+    slug: 'hrms-payroll',
+    company: 'Synergy Interface',
+    title: 'HRMS & Payroll',
+    context: 'HR & Payroll',
+    summary:
+      'A full-cycle HR and payroll system: employees, attendance, leave, salary, loans, provident fund, gratuity and tax in one place.',
+    problem:
+      'Employee records, attendance, leave, payroll and loans were handled as separate processes, and every month-end meant bringing them together by hand before salaries could be paid.',
+    role: 'Developed and maintained the HR, leave, payroll and loan modules and their reports.',
+    contributions: [
+      'Streamlined the full HR cycle of employee management, leave, payroll and loans, saving 400+ hours a year.',
+      'Built employee management on a company, branch, department and designation structure, through to separation.',
+      'Built leave management: leave types, yearly allotment and applications.',
+      'Built payroll: salary heads, salary structure and the monthly salary calculation.',
+      'Built the loan workflow: application, recommendation, approval and installment schedules.',
+      'Designed and tuned the HR and payroll reports, part of 150+ parameterized reports across the product line.',
+    ],
+    modules: [
+      {
+        title: 'Organization',
+        items: ['Companies', 'Branches', 'Departments', 'Designations', 'Users & roles'],
+      },
+      {
+        title: 'Employees',
+        items: ['Employee records', 'Additional information', 'Separation & reasons'],
+      },
+      {
+        title: 'Time & attendance',
+        items: [
+          'Duty slots',
+          'Off days',
+          'Holiday calendar',
+          'Attendance',
+          'Late attendance',
+          'Overtime',
+        ],
+      },
+      {
+        title: 'Leave',
+        items: ['Leave types', 'Leave allotment', 'Leave applications'],
+      },
+      {
+        title: 'Payroll',
+        items: [
+          'Salary heads',
+          'Salary structure',
+          'Salary calculation',
+          'Bonus',
+          'Tax slabs',
+          'Tax exclusions',
+        ],
+      },
+      {
+        title: 'Benefits & loans',
+        items: [
+          'Provident fund contributions',
+          'PF interest',
+          'Gratuity setup & calculation',
+          'Loan applications',
+          'Loan approval',
+          'Installments',
+        ],
+      },
+    ],
+    engineering: [
+      {
+        title: 'Payroll built from configurable heads',
+        body: 'Allowances and deductions are salary heads set up as data, so a pay structure changes without a release. Bonus, overtime, provident fund, tax slabs and loan installments each have their own module around the monthly calculation.',
+      },
+      {
+        title: 'Loans with a three-step approval',
+        body: 'A loan moves from application to recommendation to approval, and only then produces its installment schedule.',
+      },
+      {
+        title: 'Attendance as its own service',
+        body: 'Attendance capture runs as a separate API beside the main application, so devices and other systems can post attendance without going through the HR screens.',
+      },
+      {
+        title: 'Direct SQL where it counts',
+        body: 'Data access uses Dapper, which keeps salary and report queries explicit and fast.',
+      },
+    ],
+    architecture: [
+      { label: 'Users', nodes: ['HR staff', 'Managers', 'Employees'] },
+      { label: 'Application', nodes: ['ASP.NET Core MVC', 'Attendance API'] },
+      { label: 'Modules', nodes: ['Employees', 'Attendance', 'Leave', 'Payroll', 'Loans'] },
+      { label: 'Data', nodes: ['SQL Server', 'Dapper'] },
+      { label: 'Output', nodes: ['Payslips', 'HR & payroll reports'] },
+    ],
+    steps: [
+      'HR sets up the company structure, duty slots, holidays and leave types.',
+      'Employees are added with their salary structure.',
+      'Attendance, leave and overtime are recorded through the month.',
+      'Loans are applied for, recommended and approved.',
+      'Payroll calculates each salary with bonus, provident fund, tax and installments.',
+      'Reports go to management and accounts.',
+    ],
+    stack: ['C#', 'ASP.NET Core MVC', 'Dapper', 'SQL Server', 'RDLC', 'Crystal Reports'],
+    metrics: [
+      { value: '400+', label: 'Hours saved a year' },
+      { value: '6', label: 'Functional areas in one system' },
+    ],
+  },
+  {
+    slug: 'point-of-sale',
+    company: 'Synergy Interface',
+    title: 'Point of Sale',
+    context: 'Retail',
+    summary:
+      'A retail point-of-sale system where billing, purchasing and stock stay in step with the ledger, with mobile payments at the counter.',
+    problem:
+      'A shop needs every sale, purchase, return and transfer to update stock and the accounts at the same moment. When those are entered separately, the stock count and the books drift apart and someone has to reconcile them.',
+    role: 'Built the billing, purchasing, stock movement and payment features, and the reports around them.',
+    contributions: [
+      'Shipped Sale Bill Entry and Purchase Entry with real-time ledger and inventory sync.',
+      'Delivered Stock Transfer and Sale Return, reducing reconciliation discrepancies by 35%.',
+      'Integrated bKash and Nagad payment gateways with PCI-DSS compliance, bringing digital payments to 65% of transactions.',
+      'Designed and tuned sales, purchase and stock reports, part of 150+ parameterized reports across the product line.',
+    ],
+    modules: [
+      {
+        title: 'Sales counter',
+        items: ['Sale bill entry', 'Receipts', 'Discounts', 'Sale returns', 'Customers'],
+      },
+      {
+        title: 'Payments',
+        items: ['Cash', 'bKash', 'Nagad', 'Daily cash position'],
+      },
+      {
+        title: 'Purchasing',
+        items: ['Purchase entry', 'Suppliers', 'Purchase returns'],
+      },
+      {
+        title: 'Inventory',
+        items: [
+          'Products & categories',
+          'Stock on hand',
+          'Stock transfer between branches',
+          'Stock adjustments',
+        ],
+      },
+      {
+        title: 'Accounts & reports',
+        items: ['Ledger posting', 'Sales reports', 'Purchase reports', 'Stock reports'],
+      },
+    ],
+    engineering: [
+      {
+        title: 'One entry, three effects',
+        body: 'A sale bill reduces stock, posts to the ledger and records the payment together, so the counter, the stockroom and the accounts always agree.',
+      },
+      {
+        title: 'Returns that reverse cleanly',
+        body: 'A sale return puts the goods back into stock and reverses the ledger entry it came from, which is where most reconciliation gaps used to start.',
+      },
+      {
+        title: 'Mobile wallets at the counter',
+        body: 'bKash and Nagad are integrated as payment methods with PCI-DSS compliance, and grew to 65% of transactions.',
+      },
+    ],
+    architecture: [
+      { label: 'Counter', nodes: ['Sale bill', 'Returns', 'Receipts'] },
+      { label: 'Payments', nodes: ['Cash', 'bKash', 'Nagad'] },
+      { label: 'Back office', nodes: ['Purchase', 'Stock transfer', 'Suppliers'] },
+      { label: 'Posting', nodes: ['Inventory', 'Ledger'] },
+      { label: 'Data', nodes: ['SQL Server', 'Reports'] },
+    ],
+    steps: [
+      'Goods arrive and are recorded through purchase entry.',
+      'The cashier bills a sale and takes payment in cash or by mobile wallet.',
+      'Stock and the ledger are updated in the same step.',
+      'Returns and branch transfers adjust stock and accounts the same way.',
+      'Daily sales, stock and ledger reports close the day.',
+    ],
+    stack: ['C#', 'ASP.NET Framework', 'SQL Server', 'Crystal Reports', 'bKash', 'Nagad'],
+    metrics: [
+      { value: '65%', label: 'Of transactions paid digitally' },
+      { value: '35%', label: 'Fewer reconciliation discrepancies' },
+    ],
+  },
+  {
+    slug: 'automobile-garage-erp',
+    company: 'Synergy Interface',
+    title: 'Automobile Garage ERP',
+    context: 'Automobile service',
+    summary:
+      'An ERP for a vehicle service business, from the job estimate at reception to the invoice, with parts inventory and accounts behind it.',
+    problem:
+      'A garage runs on job sheets: what the customer asked for, what was estimated, which parts and labour were used, and what was billed. On paper those steps are disconnected, so jobs take longer and nobody can see how satisfied customers are.',
+    role: 'Delivered the workshop, order, inventory and feedback modules and their reports.',
+    contributions: [
+      'Delivered the Job Sheet, Job Estimate, Order Management, Inventory and Customer Feedback modules.',
+      'Reduced operational time by 30% by connecting the estimate, the job and the bill.',
+      'Improved customer satisfaction tracking by 40% through the feedback module.',
+      'Delivered Stock Transfer and Sale Return for parts.',
+      'Designed and tuned workshop, stock and sales reports, part of 150+ parameterized reports across the product line.',
+    ],
+    modules: [
+      {
+        title: 'Workshop',
+        items: [
+          'Vehicle check-in',
+          'Job estimates',
+          'Job sheets',
+          'Technicians',
+          'Parts requisition',
+          'Vehicle service history',
+        ],
+      },
+      {
+        title: 'Customers',
+        items: ['Customer & vehicle records', 'Appointments', 'Customer feedback'],
+      },
+      {
+        title: 'Parts inventory',
+        items: [
+          'Parts catalogue',
+          'Stock on hand',
+          'Stock transfer',
+          'Stock adjustments',
+          'Suppliers',
+        ],
+      },
+      {
+        title: 'Purchase & sales',
+        items: ['Purchase orders', 'Purchase receipts', 'Sales orders', 'Invoices', 'Sale returns'],
+      },
+      {
+        title: 'Accounts',
+        items: [
+          'Chart of accounts',
+          'Payment & receipt vouchers',
+          'Journal vouchers',
+          'Financial reports',
+        ],
+      },
+    ],
+    engineering: [
+      {
+        title: 'The job sheet is the spine',
+        body: 'An estimate becomes a job sheet, the job sheet draws parts from inventory, and the finished job becomes the invoice. Nothing is typed twice.',
+      },
+      {
+        title: 'Parts tied to jobs',
+        body: 'Parts are requisitioned against a job, so stock, job cost and the customer’s bill come from the same record.',
+      },
+      {
+        title: 'Feedback as data',
+        body: 'Customer feedback is captured against the job it relates to, which made satisfaction something the business could measure and track.',
+      },
+    ],
+    architecture: [
+      { label: 'Reception', nodes: ['Vehicle check-in', 'Job estimate'] },
+      { label: 'Workshop', nodes: ['Job sheet', 'Parts requisition', 'Technicians'] },
+      { label: 'Stores', nodes: ['Parts inventory', 'Purchase'] },
+      { label: 'Billing', nodes: ['Invoice', 'Accounts'] },
+      { label: 'After service', nodes: ['Customer feedback', 'Service history'] },
+    ],
+    steps: [
+      'A vehicle is checked in and an estimate is prepared.',
+      'The approved estimate becomes a job sheet.',
+      'Technicians requisition parts, which come out of inventory.',
+      'The finished job is invoiced and posted to accounts.',
+      'The customer’s feedback is recorded against the job.',
+    ],
+    stack: ['C#', 'ASP.NET Framework', 'SQL Server', 'RDLC', 'Crystal Reports'],
+    metrics: [
+      { value: '30%', label: 'Less operational time' },
+      { value: '40%', label: 'Better satisfaction tracking' },
+      { value: '5', label: 'Modules delivered' },
+    ],
+  },
+  {
+    slug: 'life-insurance-erp',
+    company: 'Synergy Interface',
+    title: 'Life Insurance ERP',
+    context: 'Life insurance',
+    summary:
+      'An ERP for a life insurer, covering policies, premium collection and the field agents who bring the business in.',
+    problem:
+      'A life insurer depends on data entered by field agents across the country. Every mistake in a proposal or a premium entry has to be found and corrected by the head-office data team before it reaches the policy and the accounts.',
+    role: 'Developed and maintained ERP features, validation rules and reports.',
+    contributions: [
+      'Strengthened validation of field-agent submissions, cutting processing errors by 60%.',
+      'Saved the data team 8 hours a week that had been spent correcting entries.',
+      'Delivered stock transfer and return features shared with the other products in the line.',
+      'Designed and tuned insurance reports, part of 150+ parameterized reports across the product line.',
+    ],
+    modules: [
+      {
+        title: 'Policies',
+        items: ['Proposals', 'Underwriting', 'Policy issue', 'Renewals & lapses'],
+      },
+      {
+        title: 'Premiums',
+        items: ['Premium collection', 'Receipts', 'Due & overdue tracking'],
+      },
+      {
+        title: 'Agents',
+        items: ['Agent hierarchy', 'Field submissions', 'Commission'],
+      },
+      {
+        title: 'Claims',
+        items: ['Claim registration', 'Maturity & survival benefits', 'Settlement'],
+      },
+      {
+        title: 'Accounts & reports',
+        items: ['Ledger posting', 'Business reports', 'Regulatory reports'],
+      },
+    ],
+    engineering: [
+      {
+        title: 'Catch errors where they are made',
+        body: 'Validation runs when a field agent submits, not when head office reviews. Stopping a wrong entry at the source is what cut processing errors by 60%.',
+      },
+      {
+        title: 'Reports on large tables',
+        body: 'Parameterized reports in RDLC and Crystal Reports were tuned in SQL so they stay usable as policy and premium history grows.',
+      },
+    ],
+    architecture: [
+      { label: 'Field', nodes: ['Agents', 'Branch offices'] },
+      { label: 'Entry', nodes: ['Proposal & premium entry', 'Validation rules'] },
+      { label: 'Core', nodes: ['Policies', 'Premiums', 'Commission', 'Claims'] },
+      { label: 'Data', nodes: ['Oracle', 'SQL Server'] },
+      { label: 'Output', nodes: ['Receipts', 'Reports'] },
+    ],
+    steps: [
+      'A field agent submits a proposal or a premium entry.',
+      'Validation rules check it before it is accepted.',
+      'The policy is issued and premiums are collected against it.',
+      'Commission is worked out for the agent hierarchy.',
+      'Claims and maturities are settled, and reports go to management.',
+    ],
+    stack: ['C#', 'ASP.NET Framework', 'Oracle', 'SQL Server', 'RDLC', 'Crystal Reports'],
+    metrics: [
+      { value: '60%', label: 'Fewer processing errors' },
+      { value: '8 hrs', label: 'Saved each week for the data team' },
     ],
   },
 ];
@@ -564,7 +911,12 @@ export const experience: Role[] = [
     period: 'Jul 2021 – Aug 2023',
     start: '2021-07',
     end: '2023-08',
-    projects: [],
+    projects: [
+      { label: 'HRMS & Payroll', path: '/work/hrms-payroll' },
+      { label: 'Point of Sale', path: '/work/point-of-sale' },
+      { label: 'Automobile Garage ERP', path: '/work/automobile-garage-erp' },
+      { label: 'Life Insurance ERP', path: '/work/life-insurance-erp' },
+    ],
     summary:
       'Business applications across life insurance, automobile garage ERP, point of sale, inventory, HR and payroll.',
     impact: [

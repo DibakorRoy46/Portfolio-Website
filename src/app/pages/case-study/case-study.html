@@ -97,6 +97,24 @@
         <p class="lead">{{ project().problem }}</p>
       </section>
 
+      @if (project().modules; as modules) {
+        <section>
+          <h2 class="eyebrow">What the system covers</h2>
+          <div class="modules">
+            @for (group of modules; track group.title) {
+              <div class="module">
+                <h3>{{ group.title }}</h3>
+                <ul class="tags">
+                  @for (item of group.items; track item) {
+                    <li>{{ item }}</li>
+                  }
+                </ul>
+              </div>
+            }
+          </div>
+        </section>
+      }
+
       <section>
         <h2 class="eyebrow">What I built</h2>
         <ul class="bullets">
